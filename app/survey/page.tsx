@@ -15,7 +15,7 @@ const TOTAL_STEPS = 8
 function getAnswerKey(questionId: string): keyof Answers {
   if (questionId.startsWith('occupation_detail_')) return 'occupation_detail'
   if (questionId.startsWith('follow_up_')) return 'follow_up'
-  return questionId.replace('digital_literacy', 'digital_literacy') as keyof Answers
+  return questionId as keyof Answers
 }
 
 function getNextQuestionId(question: Question, selectedValue: string): string | null {
@@ -40,6 +40,7 @@ export default function SurveyPage() {
     setAnswers(newAnswers)
 
     if (currentQuestionId === 'occupation_category' && value === 'it') {
+      setHistory(prev => [...prev, currentQuestionId])
       router.push('/easter-egg')
       return
     }
@@ -96,7 +97,7 @@ export default function SurveyPage() {
             />
           )}
 
-          {currentQuestion.type === 'single_select' && currentQuestion.id !== 'main_concern' && (
+          {currentQuestion.type === 'single_select' && (
             <QuestionCard
               question={currentQuestion.question ?? ''}
               description={currentQuestion.description}
