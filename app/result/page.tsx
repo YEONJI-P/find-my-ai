@@ -5,8 +5,7 @@ import { useRouter } from 'next/navigation'
 import AiCard from '@/components/result/AiCard'
 import PromptBox from '@/components/result/PromptBox'
 import { Button } from '@/components/ui/button'
-import type { RankedAI } from '@/lib/types'
-import type { Answers } from '@/lib/types'
+import type { RankedAI, Answers } from '@/lib/types'
 
 type SurveyResults = {
   rankedAIs: RankedAI[]
@@ -23,7 +22,11 @@ export default function ResultPage() {
       router.replace('/survey')
       return
     }
-    setResults(JSON.parse(raw))
+    try {
+      setResults(JSON.parse(raw))
+    } catch {
+      router.replace('/survey')
+    }
   }, [router])
 
   if (!results) return null
