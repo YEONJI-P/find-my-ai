@@ -1,0 +1,156 @@
+{
+  "version": "1.0.0",
+  "description": "설문 응답 기반 AI 도구 매칭 가중치 룰셋. 점수가 높을수록 해당 AI가 사용자에게 적합함.",
+
+  "scoringStrategy": {
+    "method": "weighted_sum",
+    "topResultCount": 3,
+    "tieBreaker": "digitalLiteracy",
+    "minScoreThreshold": 3
+  },
+
+  "weights": {
+    "occupation": 0.30,
+    "occupationDetail": 0.20,
+    "followUp": 0.20,
+    "device": 0.15,
+    "digitalLiteracy": 0.15
+  },
+
+  "rules": {
+
+    "occupation": {
+      "description": "직업 대분류 기반 가중치 (각 AI의 ai-tools.json matchingWeight.occupation 참조)",
+      "note": "ai-tools.json의 matchingWeight.occupation 값을 그대로 사용"
+    },
+
+    "occupationDetail": {
+      "description": "직업 세부 분류 기반 가중치",
+
+      "student": {
+        "middle_high":   { "chatgpt": 2, "clova_x": 2, "wrtn": 3, "gemini": 2, "copilot": 1, "perplexity": 2, "claude": 1, "canva_ai": 1, "lilys": 3 },
+        "university":    { "chatgpt": 3, "clova_x": 1, "wrtn": 3, "gemini": 3, "copilot": 2, "perplexity": 3, "claude": 3, "canva_ai": 2, "lilys": 3 },
+        "exam_prep":     { "chatgpt": 3, "clova_x": 2, "wrtn": 4, "gemini": 2, "copilot": 1, "perplexity": 3, "claude": 2, "canva_ai": 1, "lilys": 2 }
+      },
+
+      "jobseeker": {
+        "new_grad":       { "chatgpt": 3, "clova_x": 2, "wrtn": 5, "gemini": 2, "copilot": 2, "perplexity": 2, "claude": 4, "canva_ai": 2, "lilys": 2 },
+        "career_change":  { "chatgpt": 3, "clova_x": 2, "wrtn": 4, "gemini": 3, "copilot": 3, "perplexity": 3, "claude": 4, "canva_ai": 2, "lilys": 2 },
+        "career_explore": { "chatgpt": 4, "clova_x": 2, "wrtn": 3, "gemini": 2, "copilot": 1, "perplexity": 3, "claude": 3, "canva_ai": 1, "lilys": 3 }
+      },
+
+      "worker": {
+        "office":        { "chatgpt": 3, "clova_x": 2, "wrtn": 3, "gemini": 4, "copilot": 5, "perplexity": 2, "claude": 4, "canva_ai": 2, "lilys": 3 },
+        "professional":  { "chatgpt": 3, "clova_x": 2, "wrtn": 2, "gemini": 3, "copilot": 3, "perplexity": 5, "claude": 4, "canva_ai": 1, "lilys": 3 },
+        "public":        { "chatgpt": 2, "clova_x": 3, "wrtn": 3, "gemini": 3, "copilot": 4, "perplexity": 3, "claude": 4, "canva_ai": 2, "lilys": 3 },
+        "manager":       { "chatgpt": 3, "clova_x": 2, "wrtn": 2, "gemini": 3, "copilot": 4, "perplexity": 3, "claude": 5, "canva_ai": 2, "lilys": 4 }
+      },
+
+      "selfemployed": {
+        "food":    { "chatgpt": 2, "clova_x": 4, "wrtn": 4, "gemini": 2, "copilot": 1, "perplexity": 1, "claude": 3, "canva_ai": 5, "lilys": 2 },
+        "retail":  { "chatgpt": 2, "clova_x": 4, "wrtn": 4, "gemini": 2, "copilot": 2, "perplexity": 2, "claude": 3, "canva_ai": 5, "lilys": 2 },
+        "service": { "chatgpt": 3, "clova_x": 3, "wrtn": 4, "gemini": 2, "copilot": 2, "perplexity": 2, "claude": 3, "canva_ai": 4, "lilys": 2 },
+        "craft":   { "chatgpt": 2, "clova_x": 2, "wrtn": 3, "gemini": 2, "copilot": 1, "perplexity": 1, "claude": 2, "canva_ai": 5, "lilys": 2 }
+      },
+
+      "freelancer": {
+        "design_video":  { "chatgpt": 2, "clova_x": 1, "wrtn": 3, "gemini": 3, "copilot": 3, "perplexity": 1, "claude": 3, "canva_ai": 5, "lilys": 2 },
+        "writer":        { "chatgpt": 3, "clova_x": 2, "wrtn": 4, "gemini": 2, "copilot": 2, "perplexity": 2, "claude": 5, "canva_ai": 2, "lilys": 2 },
+        "creator":       { "chatgpt": 3, "clova_x": 2, "wrtn": 4, "gemini": 3, "copilot": 2, "perplexity": 2, "claude": 3, "canva_ai": 5, "lilys": 4 },
+        "consultant":    { "chatgpt": 4, "clova_x": 2, "wrtn": 3, "gemini": 3, "copilot": 3, "perplexity": 3, "claude": 5, "canva_ai": 2, "lilys": 3 }
+      },
+
+      "homemaker": {
+        "fulltime":   { "chatgpt": 2, "clova_x": 3, "wrtn": 2, "gemini": 2, "copilot": 1, "perplexity": 2, "claude": 2, "canva_ai": 2, "lilys": 4 },
+        "infant":     { "chatgpt": 2, "clova_x": 3, "wrtn": 2, "gemini": 2, "copilot": 1, "perplexity": 3, "claude": 2, "canva_ai": 2, "lilys": 4 },
+        "child":      { "chatgpt": 3, "clova_x": 3, "wrtn": 3, "gemini": 3, "copilot": 2, "perplexity": 3, "claude": 3, "canva_ai": 2, "lilys": 3 },
+        "returning":  { "chatgpt": 3, "clova_x": 2, "wrtn": 4, "gemini": 3, "copilot": 3, "perplexity": 3, "claude": 4, "canva_ai": 3, "lilys": 3 }
+      },
+
+      "senior": {
+        "working":         { "chatgpt": 2, "clova_x": 3, "wrtn": 2, "gemini": 2, "copilot": 3, "perplexity": 2, "claude": 2, "canva_ai": 2, "lilys": 4 },
+        "retired_leisure": { "chatgpt": 2, "clova_x": 3, "wrtn": 2, "gemini": 2, "copilot": 1, "perplexity": 2, "claude": 1, "canva_ai": 3, "lilys": 5 },
+        "second_career":   { "chatgpt": 3, "clova_x": 3, "wrtn": 3, "gemini": 2, "copilot": 2, "perplexity": 2, "claude": 3, "canva_ai": 3, "lilys": 3 },
+        "grandchild":      { "chatgpt": 2, "clova_x": 3, "wrtn": 2, "gemini": 2, "copilot": 1, "perplexity": 2, "claude": 2, "canva_ai": 2, "lilys": 5 }
+      }
+    },
+
+    "followUp": {
+      "description": "꼬리질문 응답 기반 추가 가중치",
+
+      "exam":           { "chatgpt": 3, "clova_x": 2, "wrtn": 3, "gemini": 3, "copilot": 1, "perplexity": 4, "claude": 3, "canva_ai": 1, "lilys": 3 },
+      "employment":     { "chatgpt": 3, "clova_x": 2, "wrtn": 5, "gemini": 2, "copilot": 2, "perplexity": 2, "claude": 4, "canva_ai": 2, "lilys": 2 },
+      "thesis":         { "chatgpt": 3, "clova_x": 1, "wrtn": 3, "gemini": 3, "copilot": 2, "perplexity": 4, "claude": 5, "canva_ai": 1, "lilys": 3 },
+      "language":       { "chatgpt": 5, "clova_x": 1, "wrtn": 3, "gemini": 3, "copilot": 2, "perplexity": 2, "claude": 4, "canva_ai": 1, "lilys": 2 },
+
+      "resume":         { "chatgpt": 3, "clova_x": 2, "wrtn": 5, "gemini": 2, "copilot": 2, "perplexity": 1, "claude": 5, "canva_ai": 3, "lilys": 1 },
+      "interview":      { "chatgpt": 5, "clova_x": 2, "wrtn": 3, "gemini": 2, "copilot": 1, "perplexity": 2, "claude": 4, "canva_ai": 1, "lilys": 2 },
+      "portfolio":      { "chatgpt": 3, "clova_x": 1, "wrtn": 3, "gemini": 3, "copilot": 3, "perplexity": 1, "claude": 4, "canva_ai": 5, "lilys": 2 },
+      "career_direction": { "chatgpt": 4, "clova_x": 2, "wrtn": 3, "gemini": 2, "copilot": 1, "perplexity": 3, "claude": 4, "canva_ai": 1, "lilys": 3 },
+
+      "document":       { "chatgpt": 3, "clova_x": 2, "wrtn": 3, "gemini": 3, "copilot": 5, "perplexity": 2, "claude": 5, "canva_ai": 2, "lilys": 2 },
+      "email_comm":     { "chatgpt": 4, "clova_x": 2, "wrtn": 3, "gemini": 4, "copilot": 4, "perplexity": 1, "claude": 5, "canva_ai": 1, "lilys": 2 },
+      "data":           { "chatgpt": 3, "clova_x": 1, "wrtn": 1, "gemini": 4, "copilot": 5, "perplexity": 3, "claude": 3, "canva_ai": 1, "lilys": 2 },
+      "presentation":   { "chatgpt": 3, "clova_x": 2, "wrtn": 3, "gemini": 3, "copilot": 5, "perplexity": 1, "claude": 3, "canva_ai": 5, "lilys": 2 },
+
+      "sns_promo":      { "chatgpt": 2, "clova_x": 3, "wrtn": 5, "gemini": 2, "copilot": 1, "perplexity": 1, "claude": 3, "canva_ai": 5, "lilys": 2 },
+      "customer":       { "chatgpt": 4, "clova_x": 3, "wrtn": 4, "gemini": 2, "copilot": 1, "perplexity": 2, "claude": 4, "canva_ai": 2, "lilys": 2 },
+      "content":        { "chatgpt": 3, "clova_x": 3, "wrtn": 5, "gemini": 2, "copilot": 1, "perplexity": 1, "claude": 5, "canva_ai": 4, "lilys": 2 },
+      "platform":       { "chatgpt": 3, "clova_x": 4, "wrtn": 3, "gemini": 2, "copilot": 2, "perplexity": 2, "claude": 2, "canva_ai": 3, "lilys": 3 },
+
+      "planning":       { "chatgpt": 4, "clova_x": 2, "wrtn": 4, "gemini": 3, "copilot": 2, "perplexity": 2, "claude": 5, "canva_ai": 3, "lilys": 3 },
+      "writing":        { "chatgpt": 3, "clova_x": 2, "wrtn": 5, "gemini": 2, "copilot": 2, "perplexity": 1, "claude": 5, "canva_ai": 2, "lilys": 2 },
+      "visual":         { "chatgpt": 2, "clova_x": 1, "wrtn": 3, "gemini": 3, "copilot": 3, "perplexity": 1, "claude": 2, "canva_ai": 5, "lilys": 2 },
+      "client":         { "chatgpt": 4, "clova_x": 2, "wrtn": 3, "gemini": 2, "copilot": 3, "perplexity": 1, "claude": 5, "canva_ai": 3, "lilys": 2 },
+
+      "parenting_info": { "chatgpt": 3, "clova_x": 4, "wrtn": 2, "gemini": 3, "copilot": 1, "perplexity": 4, "claude": 3, "canva_ai": 1, "lilys": 4 },
+      "household":      { "chatgpt": 3, "clova_x": 4, "wrtn": 2, "gemini": 2, "copilot": 1, "perplexity": 2, "claude": 2, "canva_ai": 2, "lilys": 4 },
+      "reemployment":   { "chatgpt": 3, "clova_x": 2, "wrtn": 4, "gemini": 2, "copilot": 3, "perplexity": 3, "claude": 4, "canva_ai": 2, "lilys": 3 },
+      "selfdev":        { "chatgpt": 4, "clova_x": 2, "wrtn": 3, "gemini": 3, "copilot": 2, "perplexity": 3, "claude": 3, "canva_ai": 3, "lilys": 4 },
+
+      "kakao_call":     { "chatgpt": 1, "clova_x": 5, "wrtn": 2, "gemini": 1, "copilot": 1, "perplexity": 1, "claude": 1, "canva_ai": 1, "lilys": 5 },
+      "youtube":        { "chatgpt": 2, "clova_x": 3, "wrtn": 1, "gemini": 4, "copilot": 1, "perplexity": 2, "claude": 1, "canva_ai": 1, "lilys": 5 },
+      "shopping":       { "chatgpt": 2, "clova_x": 5, "wrtn": 2, "gemini": 2, "copilot": 1, "perplexity": 3, "claude": 1, "canva_ai": 2, "lilys": 3 },
+      "news":           { "chatgpt": 3, "clova_x": 4, "wrtn": 1, "gemini": 3, "copilot": 1, "perplexity": 5, "claude": 2, "canva_ai": 1, "lilys": 5 }
+    },
+
+    "device": {
+      "description": "주 사용 기기 기반 가중치 (ai-tools.json matchingWeight.device 참조)",
+      "note": "ai-tools.json의 matchingWeight.device 값을 그대로 사용"
+    },
+
+    "digitalLiteracy": {
+      "description": "디지털 편의도 기반 가중치 (ai-tools.json matchingWeight.digitalLiteracy 참조)",
+      "note": "ai-tools.json의 matchingWeight.digitalLiteracy 값을 그대로 사용"
+    },
+
+    "ageBonus": {
+      "description": "나이대별 미세 보정 (선택적 적용, 가중치 낮음)",
+      "teen":         { "wrtn": 1, "chatgpt": 1, "lilys": 1 },
+      "twenties":     { "wrtn": 1, "claude": 1, "perplexity": 1 },
+      "thirties":     { "copilot": 1, "gemini": 1, "claude": 1 },
+      "forties":      { "copilot": 1, "clova_x": 1, "canva_ai": 1 },
+      "fifties_plus": { "clova_x": 2, "lilys": 2 }
+    }
+  },
+
+  "resultMessages": {
+    "description": "결과 화면에서 '왜 이 AI가 나에게 맞는지' 설명하는 템플릿",
+    "templates": {
+      "chatgpt":    "{occupation}에게 가장 범용적인 AI예요. 음성 대화로도 쓸 수 있어서 타이핑이 귀찮을 때도 편해요.",
+      "clova_x":    "네이버 계정으로 바로 시작할 수 있고, 한국 로컬 정보에 특히 강해서 {occupation}에게 딱 맞아요.",
+      "wrtn":       "한국어 글쓰기 템플릿이 풍부해서 {concern}처럼 글 쓰는 게 막막할 때 바로 도움이 돼요.",
+      "gemini":     "구글 계정만 있으면 바로 시작 가능하고, 유튜브·문서 요약까지 한 번에 되는 게 강점이에요.",
+      "copilot":    "엑셀·워드·PPT 안에서 바로 쓸 수 있어서 {occupation} 업무 효율이 확 올라가요.",
+      "perplexity": "모든 답변에 출처가 붙어 있어서 {concern}처럼 정확한 정보가 중요할 때 믿고 쓸 수 있어요.",
+      "claude":     "번역투 없는 자연스러운 한국어로 {concern}에 대한 글이나 기획안을 뚝딱 만들어줘요.",
+      "canva_ai":   "디자인 경험 없어도 텍스트 몇 줄로 SNS 썸네일·포스터를 바로 만들 수 있어요.",
+      "lilys":      "링크만 붙여넣으면 끝! {occupation}처럼 바쁜 분들이 긴 영상·기사를 빠르게 파악하는 데 최고예요."
+    }
+  },
+
+  "easterEggCondition": {
+    "occupationCategory": "it",
+    "redirectTo": "easter_egg"
+  }
+}

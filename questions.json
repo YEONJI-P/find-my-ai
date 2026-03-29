@@ -1,0 +1,347 @@
+{
+  "version": "1.0.0",
+  "flow": ["age", "occupation_category", "occupation_detail", "occupation_follow_up", "device", "digital_literacy", "mbti", "main_concern"],
+  "questions": {
+    "age": {
+      "id": "age",
+      "step": 1,
+      "type": "single_select",
+      "question": "나이대를 알려주세요 😊",
+      "options": [
+        { "value": "teen", "label": "10대" },
+        { "value": "twenties", "label": "20대" },
+        { "value": "thirties", "label": "30대" },
+        { "value": "forties", "label": "40대" },
+        { "value": "fifties_plus", "label": "50대 이상" }
+      ],
+      "next": "occupation_category"
+    },
+
+    "occupation_category": {
+      "id": "occupation_category",
+      "step": 2,
+      "type": "grid_select",
+      "question": "어떤 분이세요?",
+      "description": "가장 가까운 것을 골라주세요",
+      "options": [
+        { "value": "student", "label": "학생·수험생", "emoji": "🎓", "track": "normal" },
+        { "value": "jobseeker", "label": "취준생·이직준비", "emoji": "💼", "track": "normal" },
+        { "value": "worker", "label": "직장인", "emoji": "🏢", "track": "normal" },
+        { "value": "selfemployed", "label": "자영업·소상공인", "emoji": "🏪", "track": "normal" },
+        { "value": "freelancer", "label": "프리랜서·크리에이터", "emoji": "🎨", "track": "normal" },
+        { "value": "homemaker", "label": "주부·육아중", "emoji": "🏠", "track": "normal" },
+        { "value": "senior", "label": "시니어 (50대+)", "emoji": "🌿", "track": "normal" },
+        { "value": "it", "label": "IT·개발·데이터", "emoji": "💻", "track": "easter_egg" }
+      ],
+      "next": {
+        "student": "occupation_detail_student",
+        "jobseeker": "occupation_detail_jobseeker",
+        "worker": "occupation_detail_worker",
+        "selfemployed": "occupation_detail_selfemployed",
+        "freelancer": "occupation_detail_freelancer",
+        "homemaker": "occupation_detail_homemaker",
+        "senior": "occupation_detail_senior",
+        "it": "easter_egg"
+      }
+    },
+
+    "occupation_detail_student": {
+      "id": "occupation_detail_student",
+      "step": 3,
+      "type": "single_select",
+      "question": "어떤 학생이에요?",
+      "options": [
+        { "value": "middle_high", "label": "중·고등학생", "emoji": "📚" },
+        { "value": "university", "label": "대학생·대학원생", "emoji": "🎓" },
+        { "value": "exam_prep", "label": "재수생·편입 준비", "emoji": "📝" }
+      ],
+      "next": "follow_up_student"
+    },
+
+    "occupation_detail_jobseeker": {
+      "id": "occupation_detail_jobseeker",
+      "step": 3,
+      "type": "single_select",
+      "question": "지금 어떤 상황이에요?",
+      "options": [
+        { "value": "new_grad", "label": "신입 취업 준비 중", "emoji": "🌱" },
+        { "value": "career_change", "label": "경력직 이직 준비 중", "emoji": "🔄" },
+        { "value": "career_explore", "label": "진로 자체를 고민 중", "emoji": "🤔" }
+      ],
+      "next": "follow_up_jobseeker"
+    },
+
+    "occupation_detail_worker": {
+      "id": "occupation_detail_worker",
+      "step": 3,
+      "type": "single_select",
+      "question": "어떤 일을 하세요?",
+      "options": [
+        { "value": "office", "label": "사무직 (기획·마케팅·영업·HR)", "emoji": "💻" },
+        { "value": "professional", "label": "전문직 (의료·법률·회계·교육)", "emoji": "🏥" },
+        { "value": "public", "label": "공무원·공공기관", "emoji": "🏛️" },
+        { "value": "manager", "label": "관리직·임원", "emoji": "👔" }
+      ],
+      "next": "follow_up_worker"
+    },
+
+    "occupation_detail_selfemployed": {
+      "id": "occupation_detail_selfemployed",
+      "step": 3,
+      "type": "single_select",
+      "question": "어떤 사업을 하세요?",
+      "options": [
+        { "value": "food", "label": "요식업 (카페·식당·배달)", "emoji": "🍽️" },
+        { "value": "retail", "label": "판매업 (쇼핑몰·오프라인 매장)", "emoji": "🛍️" },
+        { "value": "service", "label": "서비스업 (미용·운동·교습 등)", "emoji": "✂️" },
+        { "value": "craft", "label": "1인 제조·공방", "emoji": "🔨" }
+      ],
+      "next": "follow_up_selfemployed"
+    },
+
+    "occupation_detail_freelancer": {
+      "id": "occupation_detail_freelancer",
+      "step": 3,
+      "type": "single_select",
+      "question": "주로 어떤 활동을 하세요?",
+      "options": [
+        { "value": "design_video", "label": "디자이너·영상편집자", "emoji": "🎬" },
+        { "value": "writer", "label": "작가·번역가·카피라이터", "emoji": "✍️" },
+        { "value": "creator", "label": "유튜버·인플루언서·스트리머", "emoji": "📱" },
+        { "value": "consultant", "label": "강사·코치·컨설턴트", "emoji": "🎤" }
+      ],
+      "next": "follow_up_freelancer"
+    },
+
+    "occupation_detail_homemaker": {
+      "id": "occupation_detail_homemaker",
+      "step": 3,
+      "type": "single_select",
+      "question": "요즘 어떻게 지내세요?",
+      "options": [
+        { "value": "fulltime", "label": "전업 주부", "emoji": "🏡" },
+        { "value": "infant", "label": "육아 중 (영·유아)", "emoji": "👶" },
+        { "value": "child", "label": "육아 중 (초등 이상)", "emoji": "🧒" },
+        { "value": "returning", "label": "경력 단절 후 복귀 준비", "emoji": "🌸" }
+      ],
+      "next": "follow_up_homemaker"
+    },
+
+    "occupation_detail_senior": {
+      "id": "occupation_detail_senior",
+      "step": 3,
+      "type": "single_select",
+      "question": "요즘 주로 뭘 하세요?",
+      "options": [
+        { "value": "working", "label": "현직 유지 중", "emoji": "💪" },
+        { "value": "retired_leisure", "label": "은퇴 후 여가·취미 활동", "emoji": "🌺" },
+        { "value": "second_career", "label": "재취업·창업 준비 중", "emoji": "🚀" },
+        { "value": "grandchild", "label": "손자녀 육아 지원 중", "emoji": "👨‍👩‍👧" }
+      ],
+      "next": "follow_up_senior"
+    },
+
+    "follow_up_student": {
+      "id": "follow_up_student",
+      "step": 4,
+      "type": "single_select",
+      "question": "요즘 가장 신경 쓰이는 게 뭐예요?",
+      "options": [
+        { "value": "exam", "label": "내신·수능 공부", "emoji": "📖" },
+        { "value": "employment", "label": "취업·인턴 준비", "emoji": "💼" },
+        { "value": "thesis", "label": "논문·과제·발표", "emoji": "📄" },
+        { "value": "language", "label": "어학 (영어·자격증)", "emoji": "🌍" }
+      ],
+      "next": "device"
+    },
+
+    "follow_up_jobseeker": {
+      "id": "follow_up_jobseeker",
+      "step": 4,
+      "type": "single_select",
+      "question": "지금 가장 막막한 단계가 어디예요?",
+      "options": [
+        { "value": "resume", "label": "자소서·이력서 작성", "emoji": "✍️" },
+        { "value": "interview", "label": "면접 준비", "emoji": "🎤" },
+        { "value": "portfolio", "label": "포트폴리오 만들기", "emoji": "🗂️" },
+        { "value": "career_direction", "label": "직무 방향 잡기", "emoji": "🧭" }
+      ],
+      "next": "device"
+    },
+
+    "follow_up_worker": {
+      "id": "follow_up_worker",
+      "step": 4,
+      "type": "single_select",
+      "question": "업무에서 가장 많이 하는 게 뭐예요?",
+      "options": [
+        { "value": "document", "label": "문서·보고서 작성", "emoji": "📝" },
+        { "value": "email_comm", "label": "이메일·커뮤니케이션", "emoji": "📧" },
+        { "value": "data", "label": "데이터 정리·엑셀", "emoji": "📊" },
+        { "value": "presentation", "label": "발표·PPT 제작", "emoji": "🖥️" }
+      ],
+      "next": "device"
+    },
+
+    "follow_up_selfemployed": {
+      "id": "follow_up_selfemployed",
+      "step": 4,
+      "type": "single_select",
+      "question": "지금 가장 아쉬운 부분이 뭐예요?",
+      "options": [
+        { "value": "sns_promo", "label": "SNS·온라인 홍보", "emoji": "📱" },
+        { "value": "customer", "label": "고객 응대·리뷰 관리", "emoji": "💬" },
+        { "value": "content", "label": "메뉴·상품 설명 글쓰기", "emoji": "✏️" },
+        { "value": "platform", "label": "배달앱·쇼핑몰 등록", "emoji": "🛒" }
+      ],
+      "next": "device"
+    },
+
+    "follow_up_freelancer": {
+      "id": "follow_up_freelancer",
+      "step": 4,
+      "type": "single_select",
+      "question": "주로 어디에 시간이 많이 들어요?",
+      "options": [
+        { "value": "planning", "label": "콘텐츠 기획·아이디어", "emoji": "💡" },
+        { "value": "writing", "label": "글·스크립트 작성", "emoji": "✍️" },
+        { "value": "visual", "label": "이미지·썸네일 제작", "emoji": "🖼️" },
+        { "value": "client", "label": "클라이언트 소통·제안서", "emoji": "🤝" }
+      ],
+      "next": "device"
+    },
+
+    "follow_up_homemaker": {
+      "id": "follow_up_homemaker",
+      "step": 4,
+      "type": "single_select",
+      "question": "AI로 해결하고 싶은 게 있다면?",
+      "options": [
+        { "value": "parenting_info", "label": "육아·교육 정보 찾기", "emoji": "👶" },
+        { "value": "household", "label": "요리·집안일 효율화", "emoji": "🍳" },
+        { "value": "reemployment", "label": "재취업·자격증 준비", "emoji": "📋" },
+        { "value": "selfdev", "label": "취미·자기계발", "emoji": "🌱" }
+      ],
+      "next": "device"
+    },
+
+    "follow_up_senior": {
+      "id": "follow_up_senior",
+      "step": 4,
+      "type": "single_select",
+      "question": "스마트폰으로 주로 뭘 하세요?",
+      "options": [
+        { "value": "kakao_call", "label": "카카오톡·전화", "emoji": "📞" },
+        { "value": "youtube", "label": "유튜브 시청", "emoji": "▶️" },
+        { "value": "shopping", "label": "쇼핑·배달 앱", "emoji": "🛒" },
+        { "value": "news", "label": "뉴스·정보 검색", "emoji": "📰" }
+      ],
+      "next": "device"
+    },
+
+    "device": {
+      "id": "device",
+      "step": 5,
+      "type": "single_select",
+      "question": "주로 어떤 기기를 쓰세요?",
+      "options": [
+        { "value": "mobile_only", "label": "스마트폰만 써요", "emoji": "📱" },
+        { "value": "mobile_main", "label": "주로 스마트폰, 가끔 PC", "emoji": "📱💻" },
+        { "value": "pc_main", "label": "PC·노트북이 주력이에요", "emoji": "💻" }
+      ],
+      "next": "digital_literacy"
+    },
+
+    "digital_literacy": {
+      "id": "digital_literacy",
+      "step": 6,
+      "type": "single_select",
+      "question": "평소 스마트폰·컴퓨터를 얼마나 편하게 쓰세요?",
+      "options": [
+        { "value": "beginner", "label": "앱 설치도 좀 어려워요", "emoji": "🐣" },
+        { "value": "intermediate", "label": "카카오톡·유튜브 정도는 잘 써요", "emoji": "🙂" },
+        { "value": "advanced", "label": "새로운 앱도 금방 익혀요", "emoji": "😎" },
+        { "value": "expert", "label": "웬만한 건 다 할 수 있어요", "emoji": "🚀" }
+      ],
+      "next": "mbti"
+    },
+
+    "mbti": {
+      "id": "mbti",
+      "step": 7,
+      "type": "single_select",
+      "optional": true,
+      "question": "MBTI를 알고 계신가요? (선택)",
+      "description": "결과에 살짝 반영돼요 😄 모르시면 건너뛰어도 돼요!",
+      "options": [
+        { "value": "INTJ", "label": "INTJ" }, { "value": "INTP", "label": "INTP" },
+        { "value": "ENTJ", "label": "ENTJ" }, { "value": "ENTP", "label": "ENTP" },
+        { "value": "INFJ", "label": "INFJ" }, { "value": "INFP", "label": "INFP" },
+        { "value": "ENFJ", "label": "ENFJ" }, { "value": "ENFP", "label": "ENFP" },
+        { "value": "ISTJ", "label": "ISTJ" }, { "value": "ISFJ", "label": "ISFJ" },
+        { "value": "ESTJ", "label": "ESTJ" }, { "value": "ESFJ", "label": "ESFJ" },
+        { "value": "ISTP", "label": "ISTP" }, { "value": "ISFP", "label": "ISFP" },
+        { "value": "ESTP", "label": "ESTP" }, { "value": "ESFP", "label": "ESFP" },
+        { "value": "unknown", "label": "모르겠어요 / 건너뛰기", "emoji": "🤷" }
+      ],
+      "next": "main_concern"
+    },
+
+    "main_concern": {
+      "id": "main_concern",
+      "step": 8,
+      "type": "text_input",
+      "question": "요즘 가장 큰 고민이 뭐예요?",
+      "description": "AI가 맞춤 프롬프트를 바로 만들어드려요 ✨",
+      "placeholder": {
+        "student": "예) 영어 에세이 쓰는 법을 모르겠어요",
+        "jobseeker": "예) 자소서 첫 문장을 어떻게 시작할지 모르겠어요",
+        "worker": "예) 보고서 요약을 빠르게 하고 싶어요",
+        "selfemployed": "예) 인스타에 올릴 메뉴 소개 글을 잘 못 쓰겠어요",
+        "freelancer": "예) 클라이언트 제안서 템플릿이 필요해요",
+        "homemaker": "예) 아이 숙제를 어떻게 도와줘야 할지 모르겠어요",
+        "senior": "예) 유튜브 영상을 짧게 요약해서 보고 싶어요",
+        "default": "예) 매일 쓰는 이메일을 더 빠르게 쓰고 싶어요"
+      },
+      "next": null
+    },
+
+    "easter_egg": {
+      "id": "easter_egg",
+      "step": null,
+      "type": "easter_egg",
+      "track": "easter_egg",
+      "variants": [
+        {
+          "occupationDetail": "developer",
+          "title": "🖥️ 잠깐, 잠깐만요...",
+          "message": "혹시 지금 터미널 3개 켜놓고 이거 하고 계신 거 아니죠?\n\nAI 리터러시가 낮은 분들을 위한 서비스라\n당신에겐 해줄 말이 없어요 😅\n\nClaude Code 돌아가고 있을 텐데\n얼른 가서 PR이나 올리세요 🫡",
+          "buttons": [
+            { "label": "GitHub 바로가기 →", "action": "open_url", "url": "https://github.com" },
+            { "label": "그래도 해볼래요 (뒤로가기)", "action": "go_back" }
+          ]
+        },
+        {
+          "occupationDetail": "data",
+          "title": "📊 어...이거 왜 하고 계세요?",
+          "message": "데이터 분석가가 AI 추천 받으러 오셨군요.\n\n혹시 A/B 테스트 설계하러 오신 건 아니죠? 🤨\n\n지금쯤 Jupyter Notebook이\n당신을 기다리고 있을 것 같은데요...",
+          "buttons": [
+            { "label": "Kaggle 가기 →", "action": "open_url", "url": "https://kaggle.com" },
+            { "label": "그래도 해볼래요 (뒤로가기)", "action": "go_back" }
+          ]
+        }
+      ]
+    }
+  },
+
+  "mbtiHints": {
+    "I": "혼자 조용히 쓰기 좋은 AI예요.",
+    "E": "대화하듯 쓸수록 더 잘 맞는 AI예요.",
+    "T": "논리적이고 구조화된 답변을 잘 뽑아줘요.",
+    "F": "공감 어린 답변이 필요할 때 특히 좋아요.",
+    "J": "체계적인 계획 세우기에 강해요.",
+    "P": "아이디어 탐색·브레인스토밍에 강해요.",
+    "N": "추상적인 개념도 잘 풀어줘요.",
+    "S": "구체적이고 실용적인 답변을 잘 줘요."
+  }
+}
