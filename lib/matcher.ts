@@ -58,7 +58,7 @@ export function calculateTopAIs(answers: Answers): RankedAI[] {
       score += getAgeBonus(answers.age, id)
     }
 
-    return { id, score, literacyScore }
+    return { id, score, literacyScore, tool }
   })
 
   const sorted = scores
@@ -68,7 +68,6 @@ export function calculateTopAIs(answers: Answers): RankedAI[] {
   const templates = matchingRulesData.resultMessages.templates as Record<string, string>
 
   return sorted.map((s, index) => {
-    const tool = aiTools.find(t => t.id === s.id)!
     const rank = (index + 1) as 1 | 2 | 3
     const msgTemplate = templates[s.id] ?? ''
     const resultMessage = msgTemplate
@@ -78,11 +77,11 @@ export function calculateTopAIs(answers: Answers): RankedAI[] {
     return {
       rank,
       id: s.id,
-      name: tool.name,
-      badge: tool.badge,
-      shortDescription: tool.shortDescription,
-      strengths: tool.strengths,
-      accessInfo: tool.accessInfo,
+      name: s.tool.name,
+      badge: s.tool.badge,
+      shortDescription: s.tool.shortDescription,
+      strengths: s.tool.strengths,
+      accessInfo: s.tool.accessInfo,
       resultMessage,
     }
   })
