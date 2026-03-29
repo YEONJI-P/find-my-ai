@@ -12,13 +12,14 @@ interface PromptBoxProps {
 
 export default function PromptBox({ topAI, answers }: PromptBoxProps) {
   const [promptText, setPromptText] = useState('')
-  const [isStreaming, setIsStreaming] = useState(false)
+  const [isStreaming, setIsStreaming] = useState(true)
   const [isDone, setIsDone] = useState(false)
   const [copied, setCopied] = useState(false)
 
   useEffect(() => {
     if (!answers.occupation_category || !answers.main_concern) return
 
+    const controller = new AbortController()
     setIsStreaming(true)
     setPromptText('')
     setIsDone(false)
@@ -34,6 +35,7 @@ export default function PromptBox({ topAI, answers }: PromptBoxProps) {
             aiName: topAI.name,
             aiDescription: topAI.shortDescription,
           }),
+          signal: controller.signal,
         })
 
         if (!response.ok || !response.body) {
@@ -48,24 +50,31 @@ export default function PromptBox({ topAI, answers }: PromptBoxProps) {
         while (true) {
           const { done, value } = await reader.read()
           if (done) break
+          if (controller.signal.aborted) { reader.cancel(); break }
           text += decoder.decode(value, { stream: true })
           setPromptText(text)
         }
-        setIsDone(true)
-      } catch {
+        if (!controller.signal.aborted) setIsDone(true)
+      } catch (e) {
+        if (controller.signal.aborted) return
         setPromptText('네트워크 오류가 발생했습니다.')
       } finally {
-        setIsStreaming(false)
+        if (!controller.signal.aborted) setIsStreaming(false)
       }
     }
 
     stream()
+    return () => controller.abort()
   }, [topAI, answers])
 
   const handleCopy = async () => {
-    await navigator.clipboard.writeText(promptText)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
+    try {
+      await navigator.clipboard.writeText(promptText)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch {
+      // clipboard 권한 없음 — 무시
+    }
   }
 
   return (
