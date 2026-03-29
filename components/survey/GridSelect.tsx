@@ -18,6 +18,7 @@ export default function GridSelect({ question, description, options, onSelect }:
         {options.map((option) => (
           <button
             key={option.value}
+            type="button"
             onClick={() => onSelect(option.value)}
             className="flex flex-col items-center justify-center p-4 rounded-xl border-2 border-gray-200 hover:border-blue-400 hover:bg-blue-50 transition-all duration-150 gap-2"
           >
