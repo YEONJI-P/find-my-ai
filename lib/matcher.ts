@@ -7,7 +7,7 @@ const rules = matchingRulesData.rules
 const weights = matchingRulesData.weights
 
 function getOccupationDetailScore(occupationCategory: string, occupationDetail: string, aiId: string): number {
-  const categoryRules = (rules.occupationDetail as Record<string, Record<string, Record<string, number>>>)[occupationCategory]
+  const categoryRules = (rules.occupationDetail as unknown as Record<string, Record<string, Record<string, number>>>)[occupationCategory]
   if (!categoryRules) return 0
   const detailRules = categoryRules[occupationDetail]
   if (!detailRules) return 0
@@ -15,13 +15,13 @@ function getOccupationDetailScore(occupationCategory: string, occupationDetail: 
 }
 
 function getFollowUpScore(followUp: string, aiId: string): number {
-  const followUpRules = (rules.followUp as Record<string, Record<string, number>>)[followUp]
+  const followUpRules = (rules.followUp as unknown as Record<string, Record<string, number>>)[followUp]
   if (!followUpRules) return 0
   return followUpRules[aiId] ?? 0
 }
 
 function getAgeBonus(age: string, aiId: string): number {
-  const ageBonusRules = (rules.ageBonus as Record<string, Record<string, number>>)[age]
+  const ageBonusRules = (rules.ageBonus as unknown as Record<string, Record<string, number>>)[age]
   if (!ageBonusRules) return 0
   return ageBonusRules[aiId] ?? 0
 }
