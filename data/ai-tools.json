@@ -204,12 +204,12 @@
     "matchingWeight": {
       "occupation": {
         "office_worker": 5,
-        "self_employed_owner": 3,
-        "jobseeker": 2,
-        "freelancer": 2,
-        "student": 2,
+        "self_employed_owner": 1,
+        "jobseeker": 1,
+        "freelancer": 1,
+        "student": 1,
         "homemaker": 1,
-        "field_worker": 2
+        "field_worker": 1
       },
       "digitalLiteracy": {
         "beginner": 2,
@@ -347,7 +347,7 @@
         "field_worker": 2
       },
       "digitalLiteracy": {
-        "beginner": 3,
+        "beginner": 2,
         "intermediate": 4,
         "advanced": 3,
         "expert": 2

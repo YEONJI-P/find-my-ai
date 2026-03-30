@@ -53,7 +53,7 @@
       },
 
       "self_employed_owner": {
-        "food":    { "chatgpt": 2, "clova_x": 4, "wrtn": 4, "gemini": 2, "copilot": 1, "perplexity": 1, "claude": 3, "canva_ai": 5, "lilys": 2 },
+        "food":    { "chatgpt": 2, "clova_x": 5, "wrtn": 4, "gemini": 2, "copilot": 1, "perplexity": 1, "claude": 3, "canva_ai": 3, "lilys": 4 },
         "retail":  { "chatgpt": 2, "clova_x": 4, "wrtn": 4, "gemini": 2, "copilot": 2, "perplexity": 2, "claude": 3, "canva_ai": 5, "lilys": 2 },
         "service": { "chatgpt": 3, "clova_x": 3, "wrtn": 4, "gemini": 2, "copilot": 2, "perplexity": 2, "claude": 3, "canva_ai": 4, "lilys": 2 },
         "craft":   { "chatgpt": 2, "clova_x": 2, "wrtn": 3, "gemini": 2, "copilot": 1, "perplexity": 1, "claude": 2, "canva_ai": 5, "lilys": 2 }
@@ -74,10 +74,10 @@
       },
 
       "field_worker": {
-        "service":   { "chatgpt": 3, "clova_x": 3, "wrtn": 2, "gemini": 2, "copilot": 1, "perplexity": 4, "claude": 2, "canva_ai": 1, "lilys": 4 },
-        "field":     { "chatgpt": 3, "clova_x": 3, "wrtn": 2, "gemini": 2, "copilot": 1, "perplexity": 4, "claude": 2, "canva_ai": 1, "lilys": 4 },
-        "transport": { "chatgpt": 3, "clova_x": 3, "wrtn": 2, "gemini": 2, "copilot": 1, "perplexity": 4, "claude": 2, "canva_ai": 1, "lilys": 4 },
-        "care":      { "chatgpt": 3, "clova_x": 3, "wrtn": 2, "gemini": 2, "copilot": 1, "perplexity": 4, "claude": 2, "canva_ai": 1, "lilys": 4 }
+        "service":   { "chatgpt": 4, "clova_x": 4, "wrtn": 2, "gemini": 2, "copilot": 1, "perplexity": 3, "claude": 2, "canva_ai": 1, "lilys": 3 },
+        "field":     { "chatgpt": 4, "clova_x": 3, "wrtn": 1, "gemini": 2, "copilot": 1, "perplexity": 3, "claude": 1, "canva_ai": 1, "lilys": 5 },
+        "transport": { "chatgpt": 4, "clova_x": 4, "wrtn": 1, "gemini": 2, "copilot": 1, "perplexity": 3, "claude": 1, "canva_ai": 1, "lilys": 4 },
+        "care":      { "chatgpt": 3, "clova_x": 5, "wrtn": 2, "gemini": 2, "copilot": 1, "perplexity": 4, "claude": 2, "canva_ai": 1, "lilys": 3 }
       }
     },
 
