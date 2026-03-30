@@ -1,26 +1,33 @@
 import { GoogleGenAI } from '@google/genai'
+import { detectConcernType, buildPromptText, type PromptParams } from '@/lib/gemini-prompt'
 
 if (!process.env.GEMINI_API_KEY) {
   throw new Error('GEMINI_API_KEY 환경변수가 설정되지 않았습니다')
 }
 const genAI = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY })
 
-export async function generatePromptStream(params: {
-  occupation: string
+export type GeneratePromptParams = {
+  occupationOrHobby: string
+  detail?: string
+  followUp?: string
   concern: string
   aiName: string
   aiDescription: string
-}): Promise<ReadableStream<Uint8Array>> {
-  const prompt = `당신은 ${params.aiName} 전문가입니다.
-${params.occupation} 직군 사용자가 "${params.concern}" 문제를 해결하기 위해
-${params.aiName}에서 바로 복사해 쓸 수 있는 한국어 프롬프트를 작성해주세요.
+}
 
-조건:
-- ${params.aiName}에 바로 붙여넣을 수 있는 완성된 프롬프트여야 합니다
-- 자연스러운 한국어로 작성해주세요
-- 사용자의 직업과 고민이 명확히 반영되어야 합니다
-- 3~5문장 분량으로 작성해주세요
-- 프롬프트 외 부가 설명은 쓰지 마세요`
+export async function generatePromptStream(params: GeneratePromptParams): Promise<ReadableStream<Uint8Array>> {
+  const concernType = detectConcernType(params.concern)
+
+  const promptParams: PromptParams = {
+    concernType,
+    occupationOrHobby: params.occupationOrHobby,
+    detail: params.detail,
+    followUp: params.followUp,
+    recommendedAI: params.aiName,
+    concern: params.concern,
+  }
+
+  const prompt = buildPromptText(promptParams)
 
   const result = await genAI.models.generateContentStream({
     model: 'gemini-2.5-flash-lite',
