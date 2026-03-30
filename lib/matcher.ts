@@ -5,6 +5,7 @@ import type { Answers, RankedAI } from '@/lib/types'
 const aiTools = aiToolsData as typeof aiToolsData
 const rules = matchingRulesData.rules
 const weights = matchingRulesData.weights
+const lifeWeights = matchingRulesData.lifeWeights
 
 function getOccupationDetailScore(occupationCategory: string, occupationDetail: string, aiId: string): number {
   const categoryRules = (rules.occupationDetail as unknown as Record<string, Record<string, Record<string, number>>>)[occupationCategory]
@@ -26,38 +27,53 @@ function getAgeBonus(age: string, aiId: string): number {
   return ageBonusRules[aiId] ?? 0
 }
 
+function getHobbyScore(hobbies: string[], aiId: string): number {
+  const hobbyRules = (rules as unknown as Record<string, Record<string, Record<string, number>>>).hobby
+  if (!hobbyRules) return 0
+  const scores = hobbies.map(h => hobbyRules[h]?.[aiId] ?? 0)
+  if (scores.length === 0) return 0
+  return scores.reduce((a, b) => a + b, 0) / scores.length
+}
+
 export function calculateTopAIs(answers: Answers): RankedAI[] {
+  const isLifeTrack = Array.isArray(answers.hobby) && answers.hobby.length > 0
+
   const scores = aiTools.map((tool) => {
     const id = tool.id
     let score = 0
 
-    // occupation (30%)
-    const occupationScore = (tool.matchingWeight.occupation as Record<string, number>)[answers.occupation_category ?? ''] ?? 0
-    score += occupationScore * weights.occupation
+    if (isLifeTrack) {
+      score += getHobbyScore(answers.hobby!, id) * lifeWeights.hobby
 
-    // occupationDetail (20%)
-    if (answers.occupation_category && answers.occupation_detail) {
-      score += getOccupationDetailScore(answers.occupation_category, answers.occupation_detail, id) * weights.occupationDetail
+      const deviceScore = (tool.matchingWeight.device as Record<string, number>)[answers.device ?? ''] ?? 0
+      score += deviceScore * lifeWeights.device
+
+      const literacyScore = (tool.matchingWeight.digitalLiteracy as Record<string, number>)[answers.digital_literacy ?? ''] ?? 0
+      score += literacyScore * lifeWeights.digitalLiteracy
+    } else {
+      const occupationScore = (tool.matchingWeight.occupation as Record<string, number>)[answers.occupation_category ?? ''] ?? 0
+      score += occupationScore * weights.occupation
+
+      if (answers.occupation_category && answers.occupation_detail) {
+        score += getOccupationDetailScore(answers.occupation_category, answers.occupation_detail, id) * weights.occupationDetail
+      }
+
+      if (answers.follow_up) {
+        score += getFollowUpScore(answers.follow_up, id) * weights.followUp
+      }
+
+      const deviceScore = (tool.matchingWeight.device as Record<string, number>)[answers.device ?? ''] ?? 0
+      score += deviceScore * weights.device
+
+      const literacyScore = (tool.matchingWeight.digitalLiteracy as Record<string, number>)[answers.digital_literacy ?? ''] ?? 0
+      score += literacyScore * weights.digitalLiteracy
     }
 
-    // followUp (20%)
-    if (answers.follow_up) {
-      score += getFollowUpScore(answers.follow_up, id) * weights.followUp
-    }
-
-    // device (15%)
-    const deviceScore = (tool.matchingWeight.device as Record<string, number>)[answers.device ?? ''] ?? 0
-    score += deviceScore * weights.device
-
-    // digitalLiteracy (15%)
-    const literacyScore = (tool.matchingWeight.digitalLiteracy as Record<string, number>)[answers.digital_literacy ?? ''] ?? 0
-    score += literacyScore * weights.digitalLiteracy
-
-    // ageBonus (보정)
     if (answers.age) {
       score += getAgeBonus(answers.age, id)
     }
 
+    const literacyScore = (tool.matchingWeight.digitalLiteracy as Record<string, number>)[answers.digital_literacy ?? ''] ?? 0
     return { id, score, literacyScore, tool }
   })
 
@@ -66,12 +82,13 @@ export function calculateTopAIs(answers: Answers): RankedAI[] {
     .slice(0, 3)
 
   const templates = matchingRulesData.resultMessages.templates as Record<string, string>
+  const occupationLabel = answers.hobby?.join('·') ?? answers.occupation_category ?? ''
 
   return sorted.map((s, index) => {
     const rank = (index + 1) as 1 | 2 | 3
     const msgTemplate = templates[s.id] ?? ''
     const resultMessage = msgTemplate
-      .replace(/{occupation}/g, answers.occupation_category ?? '')
+      .replace(/{occupation}/g, occupationLabel)
       .replace(/{concern}/g, answers.main_concern ?? '')
 
     return {
