@@ -10,11 +10,21 @@ import { calculateTopAIs } from '@/lib/matcher'
 import questionsData from '@/data/questions.json'
 import type { Answers, Question } from '@/lib/types'
 
-const TOTAL_STEPS = 8
+const TOTAL_STEPS = 9
+
+const WORK_KEYWORDS = new Set(['work_fast', 'write_better', 'find_info'])
+
+function getInterestKeywordsBranch(keywords: string[]): string {
+  const workCount = keywords.filter(k => WORK_KEYWORDS.has(k)).length
+  const lifeCount = keywords.length - workCount
+  return workCount > lifeCount ? 'occupation_category' : 'hobby'
+}
 
 function getAnswerKey(questionId: string): keyof Answers {
   if (questionId.startsWith('occupation_detail_')) return 'occupation_detail'
   if (questionId.startsWith('follow_up_')) return 'follow_up'
+  if (questionId === 'hobby') return 'hobby'
+  if (questionId === 'interest_keywords') return 'interest_keywords'
   return questionId as keyof Answers
 }
 
@@ -46,15 +56,27 @@ export default function SurveyPage() {
     }
 
     const nextId = getNextQuestionId(currentQuestion, value)
-
-    if (nextId === null) {
-      // 마지막 질문 완료 (main_concern은 텍스트이므로 별도 처리)
-      return
-    }
+    if (nextId === null) return
 
     setHistory(prev => [...prev, currentQuestionId])
     setCurrentQuestionId(nextId)
   }, [currentQuestionId, answers, currentQuestion, router])
+
+  const handleMultiConfirm = useCallback((values: string[]) => {
+    const answerKey = getAnswerKey(currentQuestionId)
+    const newAnswers = { ...answers, [answerKey]: values }
+    setAnswers(newAnswers)
+
+    let nextId: string
+    if (currentQuestionId === 'interest_keywords') {
+      nextId = getInterestKeywordsBranch(values)
+    } else {
+      nextId = (currentQuestion.next as string) ?? 'device'
+    }
+
+    setHistory(prev => [...prev, currentQuestionId])
+    setCurrentQuestionId(nextId)
+  }, [currentQuestionId, answers, currentQuestion])
 
   const handleBack = useCallback(() => {
     if (history.length === 0) {
@@ -80,12 +102,16 @@ export default function SurveyPage() {
 
   if (!currentQuestion) return null
 
-  const stepNumber = currentQuestion.step ?? TOTAL_STEPS
+  const currentStep = Math.min(history.length + 1, TOTAL_STEPS)
+
+  const placeholderKey = answers.purpose === 'life'
+    ? 'life'
+    : (answers.occupation_category ?? 'default')
 
   return (
     <main className="min-h-screen bg-white flex flex-col">
       <div className="max-w-md mx-auto w-full flex flex-col flex-1 px-4 py-6 gap-6">
-        <ProgressBar currentStep={stepNumber} totalSteps={TOTAL_STEPS} />
+        <ProgressBar currentStep={currentStep} totalSteps={TOTAL_STEPS} />
 
         <div className="flex-1">
           {currentQuestion.type === 'grid_select' && (
@@ -94,6 +120,18 @@ export default function SurveyPage() {
               description={currentQuestion.description}
               options={currentQuestion.options ?? []}
               onSelect={handleSelect}
+            />
+          )}
+
+          {currentQuestion.type === 'multi_select' && (
+            <GridSelect
+              question={currentQuestion.question ?? ''}
+              description={currentQuestion.description}
+              options={currentQuestion.options ?? []}
+              onSelect={() => {}}
+              multiSelect={true}
+              maxSelect={currentQuestion.max_select}
+              onMultiConfirm={handleMultiConfirm}
             />
           )}
 
@@ -118,7 +156,7 @@ export default function SurveyPage() {
                 value={mainConcernText}
                 onChange={e => setMainConcernText(e.target.value)}
                 placeholder={
-                  (currentQuestion.placeholder as Record<string, string>)?.[answers.occupation_category ?? ''] ??
+                  (currentQuestion.placeholder as Record<string, string>)?.[placeholderKey] ??
                   (currentQuestion.placeholder as Record<string, string>)?.['default'] ??
                   '고민을 입력해주세요'
                 }
