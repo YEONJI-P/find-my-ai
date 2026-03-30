@@ -33,28 +33,30 @@ export default function ResultPage() {
 
   const { rankedAIs, answers } = results
   const topAI = rankedAIs[0]
+  const otherAIs = rankedAIs.slice(1)
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
-      <div className="max-w-md mx-auto px-4 py-8 space-y-8">
-        <div className="text-center space-y-2">
+      <div className="max-w-md mx-auto px-4 py-8 space-y-6">
+        <div className="text-center space-y-1">
           <p className="text-sm text-blue-600 font-medium">분석 완료!</p>
           <h1 className="text-2xl font-bold text-gray-900">
-            나에게 딱 맞는 AI는<br />
-            <span className="text-blue-600">{topAI?.name}</span>이에요 🎉
+            나에게 딱 맞는 AI는 {topAI?.name} 🎉
           </h1>
         </div>
 
-        {topAI && (
-          <PromptBox topAI={topAI} answers={answers} />
-        )}
+        {topAI && <AiCard ai={topAI} isTop={true} />}
 
-        <div className="space-y-4">
-          <h2 className="font-bold text-gray-700">추천 AI Top 3</h2>
-          {rankedAIs.map((ai) => (
-            <AiCard key={ai.id} ai={ai} isTop={ai.rank === 1} />
-          ))}
-        </div>
+        {topAI && <PromptBox topAI={topAI} answers={answers} />}
+
+        {otherAIs.length > 0 && (
+          <div className="space-y-3">
+            <h2 className="font-bold text-gray-700">다른 추천 AI</h2>
+            {otherAIs.map((ai) => (
+              <AiCard key={ai.id} ai={ai} isTop={false} />
+            ))}
+          </div>
+        )}
 
         <Button
           variant="outline"
