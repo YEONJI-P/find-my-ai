@@ -7,6 +7,28 @@ const rules = matchingRulesData.rules
 const weights = matchingRulesData.weights
 const lifeWeights = matchingRulesData.lifeWeights
 
+const HOBBY_LABELS: Record<string, string> = {
+  media: '영상·미디어',
+  study: '공부·자기계발',
+  cooking: '요리·살림',
+  health: '건강·운동',
+  travel: '여행·취미',
+  finance: '재테크·투자',
+  parenting: '육아·가족',
+  shopping: '쇼핑·트렌드',
+}
+
+const OCCUPATION_LABELS: Record<string, string> = {
+  student: '학생·수험생',
+  jobseeker: '취준생·이직준비',
+  office_worker: '직장인 (사무·전문직)',
+  field_worker: '직장인 (현장·서비스직)',
+  self_employed_owner: '자영업·소상공인',
+  freelancer: '프리랜서·크리에이터',
+  homemaker: '주부·육아',
+  it: 'IT·개발·데이터',
+}
+
 function getOccupationDetailScore(occupationCategory: string, occupationDetail: string, aiId: string): number {
   const categoryRules = (rules.occupationDetail as unknown as Record<string, Record<string, Record<string, number>>>)[occupationCategory]
   if (!categoryRules) return 0
@@ -82,7 +104,9 @@ export function calculateTopAIs(answers: Answers): RankedAI[] {
     .slice(0, 3)
 
   const templates = matchingRulesData.resultMessages.templates as Record<string, string>
-  const occupationLabel = answers.hobby?.join('·') ?? answers.occupation_category ?? ''
+  const occupationLabel = answers.hobby && answers.hobby.length > 0
+    ? answers.hobby.map(h => HOBBY_LABELS[h] ?? h).join('·')
+    : OCCUPATION_LABELS[answers.occupation_category ?? ''] ?? answers.occupation_category ?? ''
 
   return sorted.map((s, index) => {
     const rank = (index + 1) as 1 | 2 | 3
