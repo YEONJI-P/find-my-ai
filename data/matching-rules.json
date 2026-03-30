@@ -17,6 +17,12 @@
     "digitalLiteracy": 0.15
   },
 
+  "lifeWeights": {
+    "hobby": 0.50,
+    "device": 0.25,
+    "digitalLiteracy": 0.25
+  },
+
   "rules": {
 
     "occupation": {
@@ -39,14 +45,14 @@
         "career_explore": { "chatgpt": 4, "clova_x": 2, "wrtn": 3, "gemini": 2, "copilot": 1, "perplexity": 3, "claude": 3, "canva_ai": 1, "lilys": 3 }
       },
 
-      "worker": {
+      "office_worker": {
         "office":        { "chatgpt": 3, "clova_x": 2, "wrtn": 3, "gemini": 4, "copilot": 5, "perplexity": 2, "claude": 4, "canva_ai": 2, "lilys": 3 },
         "professional":  { "chatgpt": 3, "clova_x": 2, "wrtn": 2, "gemini": 3, "copilot": 3, "perplexity": 5, "claude": 4, "canva_ai": 1, "lilys": 3 },
         "public":        { "chatgpt": 2, "clova_x": 3, "wrtn": 3, "gemini": 3, "copilot": 4, "perplexity": 3, "claude": 4, "canva_ai": 2, "lilys": 3 },
         "manager":       { "chatgpt": 3, "clova_x": 2, "wrtn": 2, "gemini": 3, "copilot": 4, "perplexity": 3, "claude": 5, "canva_ai": 2, "lilys": 4 }
       },
 
-      "selfemployed": {
+      "self_employed_owner": {
         "food":    { "chatgpt": 2, "clova_x": 4, "wrtn": 4, "gemini": 2, "copilot": 1, "perplexity": 1, "claude": 3, "canva_ai": 5, "lilys": 2 },
         "retail":  { "chatgpt": 2, "clova_x": 4, "wrtn": 4, "gemini": 2, "copilot": 2, "perplexity": 2, "claude": 3, "canva_ai": 5, "lilys": 2 },
         "service": { "chatgpt": 3, "clova_x": 3, "wrtn": 4, "gemini": 2, "copilot": 2, "perplexity": 2, "claude": 3, "canva_ai": 4, "lilys": 2 },
@@ -67,11 +73,11 @@
         "returning":  { "chatgpt": 3, "clova_x": 2, "wrtn": 4, "gemini": 3, "copilot": 3, "perplexity": 3, "claude": 4, "canva_ai": 3, "lilys": 3 }
       },
 
-      "senior": {
-        "working":         { "chatgpt": 2, "clova_x": 3, "wrtn": 2, "gemini": 2, "copilot": 3, "perplexity": 2, "claude": 2, "canva_ai": 2, "lilys": 4 },
-        "retired_leisure": { "chatgpt": 2, "clova_x": 3, "wrtn": 2, "gemini": 2, "copilot": 1, "perplexity": 2, "claude": 1, "canva_ai": 3, "lilys": 5 },
-        "second_career":   { "chatgpt": 3, "clova_x": 3, "wrtn": 3, "gemini": 2, "copilot": 2, "perplexity": 2, "claude": 3, "canva_ai": 3, "lilys": 3 },
-        "grandchild":      { "chatgpt": 2, "clova_x": 3, "wrtn": 2, "gemini": 2, "copilot": 1, "perplexity": 2, "claude": 2, "canva_ai": 2, "lilys": 5 }
+      "field_worker": {
+        "service":   { "chatgpt": 3, "clova_x": 3, "wrtn": 2, "gemini": 2, "copilot": 1, "perplexity": 4, "claude": 2, "canva_ai": 1, "lilys": 4 },
+        "field":     { "chatgpt": 3, "clova_x": 3, "wrtn": 2, "gemini": 2, "copilot": 1, "perplexity": 4, "claude": 2, "canva_ai": 1, "lilys": 4 },
+        "transport": { "chatgpt": 3, "clova_x": 3, "wrtn": 2, "gemini": 2, "copilot": 1, "perplexity": 4, "claude": 2, "canva_ai": 1, "lilys": 4 },
+        "care":      { "chatgpt": 3, "clova_x": 3, "wrtn": 2, "gemini": 2, "copilot": 1, "perplexity": 4, "claude": 2, "canva_ai": 1, "lilys": 4 }
       }
     },
 
@@ -111,7 +117,22 @@
       "kakao_call":     { "chatgpt": 1, "clova_x": 5, "wrtn": 2, "gemini": 1, "copilot": 1, "perplexity": 1, "claude": 1, "canva_ai": 1, "lilys": 5 },
       "youtube":        { "chatgpt": 2, "clova_x": 3, "wrtn": 1, "gemini": 4, "copilot": 1, "perplexity": 2, "claude": 1, "canva_ai": 1, "lilys": 5 },
       "shopping":       { "chatgpt": 2, "clova_x": 5, "wrtn": 2, "gemini": 2, "copilot": 1, "perplexity": 3, "claude": 1, "canva_ai": 2, "lilys": 3 },
-      "news":           { "chatgpt": 3, "clova_x": 4, "wrtn": 1, "gemini": 3, "copilot": 1, "perplexity": 5, "claude": 2, "canva_ai": 1, "lilys": 5 }
+      "news":           { "chatgpt": 3, "clova_x": 4, "wrtn": 1, "gemini": 3, "copilot": 1, "perplexity": 5, "claude": 2, "canva_ai": 1, "lilys": 5 },
+
+      "work_info":      { "chatgpt": 1, "clova_x": 4, "wrtn": 1, "gemini": 2, "copilot": 1, "perplexity": 6, "claude": 1, "canva_ai": 1, "lilys": 5 },
+      "career":         { "chatgpt": 5, "clova_x": 2, "wrtn": 4, "gemini": 2, "copilot": 1, "perplexity": 3, "claude": 2, "canva_ai": 1, "lilys": 2 },
+      "life":           { "chatgpt": 1, "clova_x": 4, "wrtn": 1, "gemini": 2, "copilot": 1, "perplexity": 5, "claude": 1, "canva_ai": 1, "lilys": 3 }
+    },
+
+    "hobby": {
+      "media":     { "chatgpt": 2, "clova_x": 2, "wrtn": 1, "gemini": 3, "copilot": 1, "perplexity": 2, "claude": 1, "canva_ai": 1, "lilys": 5 },
+      "study":     { "chatgpt": 3, "clova_x": 1, "wrtn": 2, "gemini": 2, "copilot": 2, "perplexity": 3, "claude": 3, "canva_ai": 1, "lilys": 2 },
+      "cooking":   { "chatgpt": 2, "clova_x": 3, "wrtn": 2, "gemini": 2, "copilot": 1, "perplexity": 2, "claude": 1, "canva_ai": 2, "lilys": 2 },
+      "health":    { "chatgpt": 3, "clova_x": 2, "wrtn": 1, "gemini": 2, "copilot": 1, "perplexity": 3, "claude": 2, "canva_ai": 1, "lilys": 3 },
+      "travel":    { "chatgpt": 3, "clova_x": 2, "wrtn": 1, "gemini": 2, "copilot": 1, "perplexity": 3, "claude": 2, "canva_ai": 3, "lilys": 2 },
+      "finance":   { "chatgpt": 2, "clova_x": 2, "wrtn": 1, "gemini": 2, "copilot": 1, "perplexity": 5, "claude": 2, "canva_ai": 1, "lilys": 3 },
+      "parenting": { "chatgpt": 2, "clova_x": 3, "wrtn": 2, "gemini": 2, "copilot": 1, "perplexity": 3, "claude": 2, "canva_ai": 1, "lilys": 3 },
+      "shopping":  { "chatgpt": 2, "clova_x": 3, "wrtn": 2, "gemini": 2, "copilot": 1, "perplexity": 3, "claude": 1, "canva_ai": 2, "lilys": 2 }
     },
 
     "device": {
