@@ -1,8 +1,11 @@
 export type Answers = {
   age?: string
+  purpose?: 'work' | 'life' | 'unknown'
   occupation_category?: string
   occupation_detail?: string
   follow_up?: string
+  hobby?: string[]
+  interest_keywords?: string[]
   device?: string
   digital_literacy?: string
   mbti?: string
@@ -35,10 +38,11 @@ export type QuestionOption = {
 export type Question = {
   id: string
   step: number | null
-  type: 'single_select' | 'grid_select' | 'text_input' | 'easter_egg'
+  type: 'single_select' | 'grid_select' | 'text_input' | 'multi_select' | 'easter_egg'
   question?: string
   description?: string
   optional?: boolean
+  max_select?: number
   options?: QuestionOption[]
   next?: string | Record<string, string> | null
   placeholder?: Record<string, string>
