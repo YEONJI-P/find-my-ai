@@ -23,7 +23,7 @@ ${params.aiName}에서 바로 복사해 쓸 수 있는 한국어 프롬프트를
 - 프롬프트 외 부가 설명은 쓰지 마세요`
 
   const result = await genAI.models.generateContentStream({
-    model: 'gemini-2.0-flash',
+    model: 'gemini-2.5-flash-lite',
     contents: prompt,
   })
 
