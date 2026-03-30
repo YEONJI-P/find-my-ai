@@ -1,4 +1,4 @@
-import { detectConcernType, buildPromptText } from '@/lib/gemini-prompt'
+import { detectConcernType, buildSystemInstruction } from '@/lib/gemini-prompt'
 
 describe('detectConcernType', () => {
   it('번아웃 키워드 → 2', () => {
@@ -37,7 +37,7 @@ describe('detectConcernType', () => {
   })
 })
 
-describe('buildPromptText', () => {
+describe('buildSystemInstruction', () => {
   const baseParams = {
     concernType: 1 as const,
     occupationOrHobby: '직장인 (사무·전문직)',
@@ -45,20 +45,18 @@ describe('buildPromptText', () => {
     concern: '보고서 요약을 빠르게 하고 싶어요',
   }
 
-  it('1번 유형: [AI이름에 붙여넣기] 포함', () => {
-    const result = buildPromptText(baseParams)
-    expect(result).toContain('[ChatGPT에 붙여넣기]')
-  })
-
-  it('2번 유형: [붙여넣기] 앞에 공감 멘트 존재', () => {
-    const result = buildPromptText({ ...baseParams, concernType: 2, concern: '하기 싫어요' })
-    expect(result).toContain('[ChatGPT에 붙여넣기]')
-    const idx = result.indexOf('[ChatGPT에 붙여넣기]')
-    expect(idx).toBeGreaterThan(0)
-  })
-
   it('출력에 추천 AI 이름이 포함됨', () => {
-    const result = buildPromptText({ ...baseParams, recommendedAI: 'Claude' })
+    const result = buildSystemInstruction(baseParams)
+    expect(result).toContain('ChatGPT')
+  })
+
+  it('출력에 JSON 형식 안내가 포함됨', () => {
+    const result = buildSystemInstruction(baseParams)
+    expect(result).toContain('JSON')
+  })
+
+  it('출력에 추천 AI 이름이 포함됨 (Claude)', () => {
+    const result = buildSystemInstruction({ ...baseParams, recommendedAI: 'Claude' })
     expect(result).toContain('Claude')
   })
 })

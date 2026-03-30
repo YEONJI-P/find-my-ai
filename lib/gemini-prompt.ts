@@ -29,54 +29,37 @@ export type PromptParams = {
   concern: string
 }
 
-export function buildPromptText(params: PromptParams): string {
+export function buildSystemInstruction(params: PromptParams): string {
   const { concernType, occupationOrHobby, recommendedAI, concern, detail, followUp } = params
   const context = [occupationOrHobby, detail, followUp].filter(Boolean).join(', ')
-  const tag = `[${recommendedAI}에 붙여넣기]`
 
-  const instructions: Record<1 | 2 | 3 | 4 | 5, string> = {
-    1: `당신은 ${recommendedAI} 전문가입니다.
-${context} 사용자가 "${concern}" 문제를 해결하기 위해 ${recommendedAI}에서 바로 복사해 쓸 수 있는 한국어 프롬프트를 작성하세요.
+  const systemBase = `당신은 ${recommendedAI} 전문가입니다.
+반드시 JSON 형식으로만 응답하세요: {"comment":"도입멘트","prompt":"프롬프트","answer":"예시답변"}
+- comment: 도입 멘트 (없으면 빈 문자열 "")
+- prompt: ${recommendedAI}에 바로 붙여넣을 수 있는 완성형 한국어 프롬프트 (150자 이내)
+- answer: 위 프롬프트에 대해 ${recommendedAI}가 작성할 만한 예시 답변 (3~5문장)`
 
-조건:
-- ${tag} 헤더를 첫 줄에 쓰세요
-- 프롬프트는 바로 붙여넣을 수 있는 완성형이어야 합니다
-- 자연스러운 한국어, 전문 용어 금지
-- 3~5문장 이내
-- 프롬프트 외 부가 설명은 쓰지 마세요`,
+  const typeInstructions: Record<1 | 2 | 3 | 4 | 5, string> = {
+    1: `${context} 사용자가 "${concern}"라는 문제를 해결하려 합니다.
+comment는 빈 문자열로 설정하고, prompt는 바로 복사해 쓸 수 있는 구체적인 프롬프트를 작성하세요.
+전문 용어 금지, 자연스러운 한국어로 작성하세요.`,
 
-    2: `당신은 ${recommendedAI} 전문가입니다.
-${context} 사용자가 "${concern}"이라고 했습니다. 하기 싫은 감정에 공감하는 짧은 멘트 1문장을 먼저 쓰고, 줄바꿈 후 ${tag} 헤더를 쓴 뒤, 저항감을 낮춘 가벼운 프롬프트를 작성하세요.
+    2: `${context} 사용자가 "${concern}"이라고 했습니다.
+comment는 하기 싫은 감정에 공감하는 1문장으로 작성하고,
+prompt는 "딱 3줄만", "일단 이것만" 같은 가벼운 톤으로 저항감을 낮춰 작성하세요.`,
 
-조건:
-- 공감 멘트는 자연스럽고 짧게 (1문장)
-- 프롬프트는 "딱 3줄만", "일단 이것만" 같은 가벼운 톤
-- 전문 용어 금지, 150자 이내`,
+    3: `${context} 사용자가 아직 AI로 뭘 할지 모르겠다고 합니다.
+comment는 "이거 한번 써봐요" 톤의 친근한 1문장으로 작성하고,
+prompt는 오늘 당장 따라해볼 수 있는 초간단 일상 프롬프트를 작성하세요.`,
 
-    3: `당신은 ${recommendedAI} 전문가입니다.
-${context} 사용자가 아직 AI로 뭘 할지 모르겠다고 합니다. "이거 한번 써봐요" 톤의 도입 멘트 1문장을 쓰고, 줄바꿈 후 ${tag} 헤더를 쓴 뒤, 오늘 당장 따라해볼 수 있는 초간단 일상 프롬프트를 작성하세요.
+    4: `${context} 사용자가 "${concern}"이라는 고민을 털어놨습니다.
+comment는 따뜻하게 위로하는 1문장으로 작성하고,
+prompt는 고민과 직접 연결된 실용적인 프롬프트를 작성하세요.`,
 
-조건:
-- 멘트는 부담 없고 친근하게
-- 프롬프트는 일상적이고 구체적으로 (점심 추천, 날씨 등)
-- 전문 용어 금지, 150자 이내`,
-
-    4: `당신은 ${recommendedAI} 전문가입니다.
-${context} 사용자가 "${concern}"이라는 고민을 털어놨습니다. 위로하는 짧은 공감 멘트 1문장을 먼저 쓰고, 줄바꿈 후 ${tag} 헤더를 쓴 뒤, 오늘 당장 쓸 수 있는 실용적인 프롬프트를 작성하세요.
-
-조건:
-- 공감 멘트는 따뜻하고 현실적으로
-- 프롬프트는 고민과 직접 연결된 실용적 내용
-- 전문 용어 금지, 150자 이내`,
-
-    5: `당신은 ${recommendedAI} 전문가입니다.
-사용자가 "${concern}"이라고 입력했습니다. AI도 못 도와주는 엉뚱한 요청임을 유머로 가볍게 받아치는 멘트 1문장을 쓰고, 줄바꿈 후 ${tag} 헤더를 쓴 뒤, ${context} 사용자에게 실제로 도움이 되는 프롬프트를 작성하세요.
-
-조건:
-- 유머 멘트는 짧고 친근하게 (이모지 1개 가능)
-- 프롬프트는 실제 유용한 내용으로 착지
-- 전문 용어 금지, 150자 이내`,
+    5: `사용자가 "${concern}"이라고 입력했습니다.
+comment는 AI도 못 도와주는 엉뚱한 요청임을 유머로 가볍게 받아치는 1문장으로 작성하고 (이모지 1개 가능),
+prompt는 ${context} 사용자에게 실제로 도움이 되는 프롬프트로 착지시키세요.`,
   }
 
-  return instructions[concernType]
+  return `${systemBase}\n\n${typeInstructions[concernType]}`
 }

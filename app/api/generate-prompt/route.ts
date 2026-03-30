@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server'
-import { generatePromptStream } from '@/lib/gemini'
+import { generatePromptJSON } from '@/lib/gemini'
 
 export async function POST(request: NextRequest) {
   let occupationOrHobby: string, concern: string, aiName: string, aiDescription: string
@@ -15,12 +15,7 @@ export async function POST(request: NextRequest) {
     return new Response('occupationOrHobby, concern, aiName은 필수입니다', { status: 400 })
   }
 
-  const stream = await generatePromptStream({ occupationOrHobby, concern, aiName, aiDescription, detail, followUp })
+  const result = await generatePromptJSON({ occupationOrHobby, concern, aiName, aiDescription, detail, followUp })
 
-  return new Response(stream, {
-    headers: {
-      'Content-Type': 'text/plain; charset=utf-8',
-      'Cache-Control': 'no-cache',
-    },
-  })
+  return Response.json(result)
 }

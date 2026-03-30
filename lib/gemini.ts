@@ -1,5 +1,5 @@
 import { GoogleGenAI } from '@google/genai'
-import { detectConcernType, buildPromptText, type PromptParams } from '@/lib/gemini-prompt'
+import { detectConcernType, buildSystemInstruction, type PromptParams } from '@/lib/gemini-prompt'
 
 if (!process.env.GEMINI_API_KEY) {
   throw new Error('GEMINI_API_KEY 환경변수가 설정되지 않았습니다')
@@ -15,7 +15,13 @@ export type GeneratePromptParams = {
   aiDescription: string
 }
 
-export async function generatePromptStream(params: GeneratePromptParams): Promise<ReadableStream<Uint8Array>> {
+export type GeneratePromptResult = {
+  comment: string
+  prompt: string
+  answer: string
+}
+
+export async function generatePromptJSON(params: GeneratePromptParams): Promise<GeneratePromptResult> {
   const concernType = detectConcernType(params.concern)
 
   const promptParams: PromptParams = {
@@ -27,27 +33,25 @@ export async function generatePromptStream(params: GeneratePromptParams): Promis
     concern: params.concern,
   }
 
-  const prompt = buildPromptText(promptParams)
+  const systemInstruction = buildSystemInstruction(promptParams)
 
-  const result = await genAI.models.generateContentStream({
+  const response = await genAI.models.generateContent({
     model: 'gemini-2.5-flash-lite',
-    contents: prompt,
-  })
-
-  const encoder = new TextEncoder()
-  return new ReadableStream<Uint8Array>({
-    async start(controller) {
-      try {
-        for await (const chunk of result) {
-          const text = chunk.text
-          if (text) {
-            controller.enqueue(encoder.encode(text))
-          }
-        }
-        controller.close()
-      } catch (err) {
-        controller.error(err)
-      }
+    contents: systemInstruction,
+    config: {
+      responseMimeType: 'application/json',
     },
   })
+
+  const text = response.text ?? '{}'
+  try {
+    const parsed = JSON.parse(text) as GeneratePromptResult
+    return {
+      comment: parsed.comment ?? '',
+      prompt: parsed.prompt ?? '',
+      answer: parsed.answer ?? '',
+    }
+  } catch {
+    return { comment: '', prompt: text, answer: '' }
+  }
 }
