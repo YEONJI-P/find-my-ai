@@ -14,8 +14,14 @@
         "occupation": {
           "type": "string",
           "required": true,
-          "example": "대학생, 논문준비, 공부·학습·정보 탐색",
-          "note": "occupationLabel + occupationDetail + 관심사 레이블을 쉼표로 합친 값. 관심사는 선택된 항목을 '·'로 연결한 문자열"
+          "example": "취준생·이직준비, 경력직 이직 준비 중",
+          "note": "occupationLabel + occupationDetail을 쉼표로 합친 값. 이 사람이 누구인지(배경)를 나타냄"
+        },
+        "interests": {
+          "type": "string",
+          "required": false,
+          "example": "게임·엔터, 재테크",
+          "note": "사용자가 AI로 해보고 싶다고 선택한 관심 분야. 직업·이직 목표가 아닌 AI 활용 목적이며, occupation과 무관한 개인 취미일 수 있음. 없으면 필드 생략"
         },
         "concern": {
           "type": "string",
@@ -96,7 +102,12 @@
       "prompt": {
         "general": "바로 복사해서 붙여넣을 수 있는 완성형 프롬프트, 150자 이내",
         "burnout": "\"딱 3줄만\", \"일단 이것만\" 같은 가벼운 톤으로 저항감 최소화",
-        "funny": "유머를 받아치되 occupation에 실제로 도움이 되는 방향으로 착지"
+        "funny": "유머를 받아치되 occupation에 실제로 도움이 되는 방향으로 착지",
+        "priorityRules": {
+          "withConcern": "concern을 중심으로 prompt 생성. occupation은 맥락, interests는 무시해도 됨",
+          "withInterestsNoConcern": "occupation × interests 교차점으로 prompt 생성. interests는 AI 활용 목적(취미·관심사)이지 이직 목표 산업이 아님. 예) 취준생 + 게임·엔터 → 이직 준비 중 게임·엔터 정보를 AI로 탐색하는 프롬프트",
+          "occupationOnly": "occupation 기반으로만 생성"
+        }
       }
     },
     "mbtiToneGuide": {
