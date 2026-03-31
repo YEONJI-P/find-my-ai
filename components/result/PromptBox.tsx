@@ -17,22 +17,15 @@ type PromptResult = {
   answer: string
 }
 
-function buildOccupationOrHobby(answers: Answers): string {
-  if (answers.hobby && answers.hobby.length > 0) {
-    const hobbyLabels: Record<string, string> = {
-      media: '영상·미디어', study: '공부·자기계발', cooking: '요리·살림',
-      health: '건강·운동', travel: '여행·취미', finance: '재테크·투자',
-      parenting: '육아·가족', shopping: '쇼핑·트렌드',
-    }
-    return answers.hobby.map(h => hobbyLabels[h] ?? h).join(', ')
-  }
-  const occupationLabels: Record<string, string> = {
-    student: '학생·수험생', jobseeker: '취준생·이직준비',
-    office_worker: '직장인 (사무·전문직)', field_worker: '직장인 (현장·서비스직)',
-    self_employed_owner: '자영업·소상공인', freelancer: '프리랜서·크리에이터',
-    homemaker: '주부·육아', it: 'IT·개발·데이터',
-  }
-  return occupationLabels[answers.occupation_category ?? ''] ?? answers.occupation_category ?? ''
+const OCCUPATION_LABELS: Record<string, string> = {
+  student: '학생·수험생', jobseeker: '취준생·이직준비',
+  office_worker: '직장인 (사무·전문직)', field_worker: '직장인 (현장·서비스직)',
+  self_employed_owner: '자영업·소상공인', freelancer: '프리랜서·크리에이터',
+  homemaker: '주부·육아', it: 'IT·개발·데이터',
+}
+
+function buildOccupationLabel(answers: Answers): string {
+  return OCCUPATION_LABELS[answers.occupation_category ?? ''] ?? answers.occupation_category ?? ''
 }
 
 export default function PromptBox({ topAI, answers, onResultMessage }: PromptBoxProps) {
@@ -43,8 +36,7 @@ export default function PromptBox({ topAI, answers, onResultMessage }: PromptBox
   const [retryCount, setRetryCount] = useState(0)
 
   useEffect(() => {
-    const hasContext = !!(answers.occupation_category || (answers.hobby && answers.hobby.length > 0))
-    if (!hasContext) {
+    if (!answers.occupation_category) {
       setLoading(false)
       return
     }
@@ -58,13 +50,12 @@ export default function PromptBox({ topAI, answers, onResultMessage }: PromptBox
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        occupationOrHobby: buildOccupationOrHobby(answers),
+        occupationOrHobby: buildOccupationLabel(answers),
         detail: answers.occupation_detail,
-        followUp: answers.follow_up,
+        interests: answers.interests,
         concern: answers.main_concern,
         mbti: answers.mbti,
         aiName: topAI.name,
-        aiDescription: topAI.shortDescription,
       }),
       signal: controller.signal,
     })

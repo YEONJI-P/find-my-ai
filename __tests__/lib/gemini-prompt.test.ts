@@ -12,9 +12,19 @@ describe('buildPromptInput', () => {
     expect(result.occupation).toBe('직장인 (사무·전문직)')
   })
 
-  it('detail, followUp이 occupation에 합쳐짐', () => {
-    const result = buildPromptInput({ ...baseParams, detail: 'office', followUp: 'document' })
-    expect(result.occupation).toBe('직장인 (사무·전문직), office, document')
+  it('detail, interests가 occupation에 합쳐짐', () => {
+    const result = buildPromptInput({ ...baseParams, detail: 'office', interests: ['productivity', 'writing'] })
+    expect(result.occupation).toBe('직장인 (사무·전문직), office, 업무 생산성·글쓰기')
+  })
+
+  it('interests에 unknown 포함 시 unknown은 제외', () => {
+    const result = buildPromptInput({ ...baseParams, interests: ['finance', 'unknown'] })
+    expect(result.occupation).toBe('직장인 (사무·전문직), 재테크')
+  })
+
+  it('interests=[unknown]만 있으면 occupation에서 interests 생략', () => {
+    const result = buildPromptInput({ ...baseParams, interests: ['unknown'] })
+    expect(result.occupation).toBe('직장인 (사무·전문직)')
   })
 
   it('concern이 있으면 포함', () => {

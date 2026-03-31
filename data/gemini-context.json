@@ -14,8 +14,8 @@
         "occupation": {
           "type": "string",
           "required": true,
-          "example": "대학생, 논문준비, thesis",
-          "note": "occupationOrHobby + detail + followUp을 쉼표로 합친 값"
+          "example": "대학생, 논문준비, 공부·학습·정보 탐색",
+          "note": "occupationLabel + occupationDetail + 관심사 레이블을 쉼표로 합친 값. 관심사는 선택된 항목을 '·'로 연결한 문자열"
         },
         "concern": {
           "type": "string",

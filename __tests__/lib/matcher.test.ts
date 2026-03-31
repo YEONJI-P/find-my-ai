@@ -1,14 +1,13 @@
 import { calculateTopAIs } from '@/lib/matcher'
 import type { Answers } from '@/lib/types'
 
-describe('calculateTopAIs — work 트랙', () => {
-  it('직장인(사무)+문서작성+PC+고급 → copilot이 1위', () => {
+describe('calculateTopAIs', () => {
+  it('직장인(사무)+문서작성 interests+PC+고급 → copilot이 1위', () => {
     const answers: Answers = {
       age: 'thirties',
-      purpose: 'work',
       occupation_category: 'office_worker',
       occupation_detail: 'office',
-      follow_up: 'document',
+      interests: ['productivity', 'writing'],
       device: 'pc_main',
       digital_literacy: 'advanced',
       main_concern: '보고서 요약을 빠르게 하고 싶어요',
@@ -23,10 +22,9 @@ describe('calculateTopAIs — work 트랙', () => {
 
   it('결과에 resultMessage 플레이스홀더가 남지 않음', () => {
     const answers: Answers = {
-      purpose: 'work',
       occupation_category: 'office_worker',
       occupation_detail: 'office',
-      follow_up: 'document',
+      interests: ['productivity'],
       device: 'pc_main',
       digital_literacy: 'advanced',
       main_concern: '보고서 요약',
@@ -40,10 +38,9 @@ describe('calculateTopAIs — work 트랙', () => {
 
   it('정렬된 rank 순서 반환', () => {
     const answers: Answers = {
-      purpose: 'work',
       occupation_category: 'freelancer',
       occupation_detail: 'writer',
-      follow_up: 'writing',
+      interests: ['writing'],
       device: 'pc_main',
       digital_literacy: 'advanced',
     }
@@ -51,12 +48,11 @@ describe('calculateTopAIs — work 트랙', () => {
     expect(result.map(r => r.rank)).toEqual([1, 2, 3])
   })
 
-  it('field_worker+work_info → perplexity 상위권', () => {
+  it('field_worker+info interests → perplexity 상위권', () => {
     const answers: Answers = {
-      purpose: 'work',
       occupation_category: 'field_worker',
       occupation_detail: 'service',
-      follow_up: 'work_info',
+      interests: ['info'],
       device: 'mobile_only',
       digital_literacy: 'intermediate',
       main_concern: '노무 관련 정보를 찾고 싶어요',
@@ -66,14 +62,12 @@ describe('calculateTopAIs — work 트랙', () => {
     expect(perplexityRank).toBeDefined()
     expect(perplexityRank).toBeLessThanOrEqual(2)
   })
-})
 
-describe('calculateTopAIs — life 트랙', () => {
-  it('hobby=[finance]+mobile → perplexity 상위권', () => {
+  it('interests=[finance, info] → perplexity 상위권', () => {
     const answers: Answers = {
-      age: 'thirties',
-      purpose: 'life',
-      hobby: ['finance'],
+      occupation_category: 'student',
+      occupation_detail: 'university',
+      interests: ['finance', 'info'],
       device: 'mobile_only',
       digital_literacy: 'intermediate',
       main_concern: '재테크 공부를 시작하고 싶어요',
@@ -85,13 +79,13 @@ describe('calculateTopAIs — life 트랙', () => {
     expect(perplexityRank).toBeLessThanOrEqual(2)
   })
 
-  it('hobby=[media]+mobile+beginner → lilys 상위권', () => {
+  it('interests=[video]+mobile+beginner → lilys 상위권', () => {
     const answers: Answers = {
-      purpose: 'life',
-      hobby: ['media'],
+      occupation_category: 'homemaker',
+      occupation_detail: 'fulltime',
+      interests: ['video'],
       device: 'mobile_only',
       digital_literacy: 'beginner',
-      main_concern: '유튜브 요약이 필요해요',
     }
     const result = calculateTopAIs(answers)
     const lilysRank = result.find(r => r.id === 'lilys')?.rank
@@ -99,10 +93,23 @@ describe('calculateTopAIs — life 트랙', () => {
     expect(lilysRank).toBeLessThanOrEqual(2)
   })
 
-  it('life 트랙도 3개 결과 반환', () => {
+  it('interests=[unknown]만 선택 시도 3개 결과 반환', () => {
     const answers: Answers = {
-      purpose: 'life',
-      hobby: ['cooking', 'health'],
+      occupation_category: 'student',
+      occupation_detail: 'university',
+      interests: ['unknown'],
+      device: 'mobile_main',
+      digital_literacy: 'intermediate',
+    }
+    const result = calculateTopAIs(answers)
+    expect(result).toHaveLength(3)
+    expect(result.map(r => r.rank)).toEqual([1, 2, 3])
+  })
+
+  it('interests 없어도 3개 결과 반환', () => {
+    const answers: Answers = {
+      occupation_category: 'student',
+      occupation_detail: 'middle_high',
       device: 'mobile_main',
       digital_literacy: 'intermediate',
     }

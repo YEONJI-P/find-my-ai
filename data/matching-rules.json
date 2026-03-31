@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "설문 응답 기반 AI 도구 매칭 가중치 룰셋. 점수가 높을수록 해당 AI가 사용자에게 적합함.",
 
   "scoringStrategy": {
@@ -12,15 +12,9 @@
   "weights": {
     "occupation": 0.30,
     "occupationDetail": 0.20,
-    "followUp": 0.20,
+    "interests": 0.20,
     "device": 0.15,
     "digitalLiteracy": 0.15
-  },
-
-  "lifeWeights": {
-    "hobby": 0.50,
-    "device": 0.25,
-    "digitalLiteracy": 0.25
   },
 
   "rules": {
@@ -81,58 +75,22 @@
       }
     },
 
-    "followUp": {
-      "description": "꼬리질문 응답 기반 추가 가중치",
+    "interests": {
+      "description": "AI 활용 관심사 기반 추가 가중치 (복수 선택 시 평균 적용)",
 
-      "exam":           { "chatgpt": 3, "clova_x": 2, "wrtn": 3, "gemini": 3, "copilot": 1, "perplexity": 4, "claude": 3, "canva_ai": 1, "lilys": 3 },
-      "employment":     { "chatgpt": 3, "clova_x": 2, "wrtn": 5, "gemini": 2, "copilot": 2, "perplexity": 2, "claude": 4, "canva_ai": 2, "lilys": 2 },
-      "thesis":         { "chatgpt": 3, "clova_x": 1, "wrtn": 3, "gemini": 3, "copilot": 2, "perplexity": 4, "claude": 5, "canva_ai": 1, "lilys": 3 },
-      "language":       { "chatgpt": 5, "clova_x": 1, "wrtn": 3, "gemini": 3, "copilot": 2, "perplexity": 2, "claude": 4, "canva_ai": 1, "lilys": 2 },
-
-      "resume":         { "chatgpt": 3, "clova_x": 2, "wrtn": 5, "gemini": 2, "copilot": 2, "perplexity": 1, "claude": 5, "canva_ai": 3, "lilys": 1 },
-      "interview":      { "chatgpt": 5, "clova_x": 2, "wrtn": 3, "gemini": 2, "copilot": 1, "perplexity": 2, "claude": 4, "canva_ai": 1, "lilys": 2 },
-      "portfolio":      { "chatgpt": 3, "clova_x": 1, "wrtn": 3, "gemini": 3, "copilot": 3, "perplexity": 1, "claude": 4, "canva_ai": 5, "lilys": 2 },
-      "career_direction": { "chatgpt": 4, "clova_x": 2, "wrtn": 3, "gemini": 2, "copilot": 1, "perplexity": 3, "claude": 4, "canva_ai": 1, "lilys": 3 },
-
-      "document":       { "chatgpt": 3, "clova_x": 2, "wrtn": 3, "gemini": 3, "copilot": 5, "perplexity": 2, "claude": 5, "canva_ai": 2, "lilys": 2 },
-      "email_comm":     { "chatgpt": 4, "clova_x": 2, "wrtn": 3, "gemini": 4, "copilot": 4, "perplexity": 1, "claude": 5, "canva_ai": 1, "lilys": 2 },
-      "data":           { "chatgpt": 3, "clova_x": 1, "wrtn": 1, "gemini": 4, "copilot": 5, "perplexity": 3, "claude": 3, "canva_ai": 1, "lilys": 2 },
-      "presentation":   { "chatgpt": 3, "clova_x": 2, "wrtn": 3, "gemini": 3, "copilot": 5, "perplexity": 1, "claude": 3, "canva_ai": 5, "lilys": 2 },
-
-      "sns_promo":      { "chatgpt": 2, "clova_x": 3, "wrtn": 5, "gemini": 2, "copilot": 1, "perplexity": 1, "claude": 3, "canva_ai": 5, "lilys": 2 },
-      "customer":       { "chatgpt": 4, "clova_x": 3, "wrtn": 4, "gemini": 2, "copilot": 1, "perplexity": 2, "claude": 4, "canva_ai": 2, "lilys": 2 },
-      "content":        { "chatgpt": 3, "clova_x": 3, "wrtn": 5, "gemini": 2, "copilot": 1, "perplexity": 1, "claude": 5, "canva_ai": 4, "lilys": 2 },
-      "platform":       { "chatgpt": 3, "clova_x": 4, "wrtn": 3, "gemini": 2, "copilot": 2, "perplexity": 2, "claude": 2, "canva_ai": 3, "lilys": 3 },
-
-      "planning":       { "chatgpt": 4, "clova_x": 2, "wrtn": 4, "gemini": 3, "copilot": 2, "perplexity": 2, "claude": 5, "canva_ai": 3, "lilys": 3 },
-      "writing":        { "chatgpt": 3, "clova_x": 2, "wrtn": 5, "gemini": 2, "copilot": 2, "perplexity": 1, "claude": 5, "canva_ai": 2, "lilys": 2 },
-      "visual":         { "chatgpt": 2, "clova_x": 1, "wrtn": 3, "gemini": 3, "copilot": 3, "perplexity": 1, "claude": 2, "canva_ai": 5, "lilys": 2 },
-      "client":         { "chatgpt": 4, "clova_x": 2, "wrtn": 3, "gemini": 2, "copilot": 3, "perplexity": 1, "claude": 5, "canva_ai": 3, "lilys": 2 },
-
-      "parenting_info": { "chatgpt": 3, "clova_x": 4, "wrtn": 2, "gemini": 3, "copilot": 1, "perplexity": 4, "claude": 3, "canva_ai": 1, "lilys": 4 },
-      "household":      { "chatgpt": 3, "clova_x": 4, "wrtn": 2, "gemini": 2, "copilot": 1, "perplexity": 2, "claude": 2, "canva_ai": 2, "lilys": 4 },
-      "reemployment":   { "chatgpt": 3, "clova_x": 2, "wrtn": 4, "gemini": 2, "copilot": 3, "perplexity": 3, "claude": 4, "canva_ai": 2, "lilys": 3 },
-      "selfdev":        { "chatgpt": 4, "clova_x": 2, "wrtn": 3, "gemini": 3, "copilot": 2, "perplexity": 3, "claude": 3, "canva_ai": 3, "lilys": 4 },
-
-      "kakao_call":     { "chatgpt": 1, "clova_x": 5, "wrtn": 2, "gemini": 1, "copilot": 1, "perplexity": 1, "claude": 1, "canva_ai": 1, "lilys": 5 },
-      "youtube":        { "chatgpt": 2, "clova_x": 3, "wrtn": 1, "gemini": 4, "copilot": 1, "perplexity": 2, "claude": 1, "canva_ai": 1, "lilys": 5 },
-      "shopping":       { "chatgpt": 2, "clova_x": 5, "wrtn": 2, "gemini": 2, "copilot": 1, "perplexity": 3, "claude": 1, "canva_ai": 2, "lilys": 3 },
-      "news":           { "chatgpt": 3, "clova_x": 4, "wrtn": 1, "gemini": 3, "copilot": 1, "perplexity": 5, "claude": 2, "canva_ai": 1, "lilys": 5 },
-
-      "work_info":      { "chatgpt": 1, "clova_x": 4, "wrtn": 1, "gemini": 2, "copilot": 1, "perplexity": 6, "claude": 1, "canva_ai": 1, "lilys": 5 },
-      "career":         { "chatgpt": 5, "clova_x": 2, "wrtn": 4, "gemini": 2, "copilot": 1, "perplexity": 3, "claude": 2, "canva_ai": 1, "lilys": 2 },
-      "life":           { "chatgpt": 1, "clova_x": 4, "wrtn": 1, "gemini": 2, "copilot": 1, "perplexity": 5, "claude": 1, "canva_ai": 1, "lilys": 3 }
-    },
-
-    "hobby": {
-      "media":     { "chatgpt": 2, "clova_x": 2, "wrtn": 1, "gemini": 3, "copilot": 1, "perplexity": 2, "claude": 1, "canva_ai": 1, "lilys": 5 },
-      "study":     { "chatgpt": 3, "clova_x": 1, "wrtn": 2, "gemini": 2, "copilot": 2, "perplexity": 3, "claude": 3, "canva_ai": 1, "lilys": 2 },
-      "cooking":   { "chatgpt": 2, "clova_x": 3, "wrtn": 2, "gemini": 2, "copilot": 1, "perplexity": 2, "claude": 1, "canva_ai": 2, "lilys": 2 },
-      "health":    { "chatgpt": 3, "clova_x": 2, "wrtn": 1, "gemini": 2, "copilot": 1, "perplexity": 3, "claude": 2, "canva_ai": 1, "lilys": 3 },
-      "travel":    { "chatgpt": 3, "clova_x": 2, "wrtn": 1, "gemini": 2, "copilot": 1, "perplexity": 3, "claude": 2, "canva_ai": 3, "lilys": 2 },
-      "finance":   { "chatgpt": 2, "clova_x": 2, "wrtn": 1, "gemini": 2, "copilot": 1, "perplexity": 5, "claude": 2, "canva_ai": 1, "lilys": 3 },
-      "parenting": { "chatgpt": 2, "clova_x": 3, "wrtn": 2, "gemini": 2, "copilot": 1, "perplexity": 3, "claude": 2, "canva_ai": 1, "lilys": 3 },
-      "shopping":  { "chatgpt": 2, "clova_x": 3, "wrtn": 2, "gemini": 2, "copilot": 1, "perplexity": 3, "claude": 1, "canva_ai": 2, "lilys": 2 }
+      "productivity":   { "chatgpt": 3, "clova_x": 2, "wrtn": 3, "gemini": 3, "copilot": 5, "perplexity": 2, "claude": 4, "canva_ai": 2, "lilys": 2 },
+      "writing":        { "chatgpt": 3, "clova_x": 2, "wrtn": 4, "gemini": 2, "copilot": 2, "perplexity": 2, "claude": 5, "canva_ai": 2, "lilys": 2 },
+      "study":          { "chatgpt": 3, "clova_x": 2, "wrtn": 3, "gemini": 3, "copilot": 2, "perplexity": 4, "claude": 3, "canva_ai": 1, "lilys": 3 },
+      "job_prep":       { "chatgpt": 3, "clova_x": 2, "wrtn": 5, "gemini": 2, "copilot": 2, "perplexity": 2, "claude": 4, "canva_ai": 2, "lilys": 2 },
+      "design":         { "chatgpt": 2, "clova_x": 1, "wrtn": 3, "gemini": 3, "copilot": 3, "perplexity": 1, "claude": 2, "canva_ai": 5, "lilys": 2 },
+      "video":          { "chatgpt": 2, "clova_x": 2, "wrtn": 2, "gemini": 3, "copilot": 2, "perplexity": 2, "claude": 2, "canva_ai": 4, "lilys": 5 },
+      "info":           { "chatgpt": 3, "clova_x": 3, "wrtn": 1, "gemini": 3, "copilot": 2, "perplexity": 5, "claude": 3, "canva_ai": 1, "lilys": 4 },
+      "finance":        { "chatgpt": 2, "clova_x": 2, "wrtn": 2, "gemini": 3, "copilot": 2, "perplexity": 5, "claude": 3, "canva_ai": 1, "lilys": 3 },
+      "travel":         { "chatgpt": 3, "clova_x": 2, "wrtn": 2, "gemini": 3, "copilot": 2, "perplexity": 3, "claude": 3, "canva_ai": 2, "lilys": 2 },
+      "health":         { "chatgpt": 3, "clova_x": 2, "wrtn": 2, "gemini": 3, "copilot": 2, "perplexity": 3, "claude": 3, "canva_ai": 1, "lilys": 2 },
+      "cooking":        { "chatgpt": 3, "clova_x": 4, "wrtn": 2, "gemini": 2, "copilot": 1, "perplexity": 2, "claude": 2, "canva_ai": 2, "lilys": 3 },
+      "shopping":       { "chatgpt": 2, "clova_x": 4, "wrtn": 2, "gemini": 2, "copilot": 1, "perplexity": 3, "claude": 2, "canva_ai": 2, "lilys": 3 },
+      "entertainment":  { "chatgpt": 4, "clova_x": 2, "wrtn": 2, "gemini": 4, "copilot": 2, "perplexity": 2, "claude": 3, "canva_ai": 2, "lilys": 2 }
     },
 
     "device": {

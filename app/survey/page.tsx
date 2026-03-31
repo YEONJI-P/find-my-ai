@@ -10,21 +10,10 @@ import { calculateTopAIs } from '@/lib/matcher'
 import questionsData from '@/data/questions.json'
 import type { Answers, Question } from '@/lib/types'
 
-const TOTAL_STEPS = 9
-
-const WORK_KEYWORDS = new Set(['work_fast', 'write_better', 'find_info'])
-
-function getInterestKeywordsBranch(keywords: string[]): string {
-  const workCount = keywords.filter(k => WORK_KEYWORDS.has(k)).length
-  const lifeCount = keywords.length - workCount
-  return workCount > lifeCount ? 'occupation_category' : 'hobby'
-}
+const TOTAL_STEPS = 8
 
 function getAnswerKey(questionId: string): keyof Answers {
   if (questionId.startsWith('occupation_detail_')) return 'occupation_detail'
-  if (questionId.startsWith('follow_up_')) return 'follow_up'
-  if (questionId === 'hobby') return 'hobby'
-  if (questionId === 'interest_keywords') return 'interest_keywords'
   return questionId as keyof Answers
 }
 
@@ -67,13 +56,7 @@ export default function SurveyPage() {
     const newAnswers = { ...answers, [answerKey]: values }
     setAnswers(newAnswers)
 
-    let nextId: string
-    if (currentQuestionId === 'interest_keywords') {
-      nextId = getInterestKeywordsBranch(values)
-    } else {
-      nextId = (currentQuestion.next as string) ?? 'device'
-    }
-
+    const nextId = (currentQuestion.next as string) ?? 'device'
     setHistory(prev => [...prev, currentQuestionId])
     setCurrentQuestionId(nextId)
   }, [currentQuestionId, answers, currentQuestion])
@@ -110,9 +93,7 @@ export default function SurveyPage() {
 
   const currentStep = Math.min(history.length + 1, TOTAL_STEPS)
 
-  const placeholderKey = answers.purpose === 'life'
-    ? 'life'
-    : (answers.occupation_category ?? 'default')
+  const placeholderKey = answers.occupation_category ?? 'default'
 
   return (
     <main className="min-h-screen bg-white flex flex-col">

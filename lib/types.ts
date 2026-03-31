@@ -1,11 +1,8 @@
 export type Answers = {
   age?: string
-  purpose?: 'work' | 'life' | 'unknown'
   occupation_category?: string
   occupation_detail?: string
-  follow_up?: string
-  hobby?: string[]
-  interest_keywords?: string[]
+  interests?: string[]
   device?: string
   digital_literacy?: string
   mbti?: string
