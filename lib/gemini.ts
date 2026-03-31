@@ -6,6 +6,7 @@ if (!process.env.GEMINI_API_KEY) {
   throw new Error('GEMINI_API_KEY 환경변수가 설정되지 않았습니다')
 }
 const genAI = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY })
+const SYSTEM_INSTRUCTION = JSON.stringify(geminiContext.systemInstruction)
 
 export type GeneratePromptParams = {
   occupationOrHobby: string
@@ -36,9 +37,9 @@ export async function generatePromptJSON(params: GeneratePromptParams): Promise<
   const input = buildPromptInput(promptParams)
 
   const response = await genAI.models.generateContent({
-    model: 'gemini-2.5-flash-lite',
+    model: 'gemini-2.0-flash-lite',
     config: {
-      systemInstruction: JSON.stringify(geminiContext.systemInstruction),
+      systemInstruction: SYSTEM_INSTRUCTION,
       responseMimeType: 'application/json',
     },
     contents: JSON.stringify(input),

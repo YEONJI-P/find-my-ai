@@ -40,6 +40,7 @@ export default function PromptBox({ topAI, answers, onResultMessage }: PromptBox
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const [copied, setCopied] = useState(false)
+  const [retryCount, setRetryCount] = useState(0)
 
   useEffect(() => {
     const hasContext = !!(answers.occupation_category || (answers.hobby && answers.hobby.length > 0))
@@ -87,7 +88,7 @@ export default function PromptBox({ topAI, answers, onResultMessage }: PromptBox
       })
 
     return () => controller.abort()
-  }, [topAI, answers, onResultMessage])
+  }, [topAI, answers, onResultMessage, retryCount])
 
   const handleCopy = async () => {
     if (!result?.prompt) return
@@ -104,16 +105,27 @@ export default function PromptBox({ topAI, answers, onResultMessage }: PromptBox
     return (
       <div className="flex flex-col items-center justify-center py-10 space-y-3">
         <div className="w-8 h-8 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin" />
-        <p className="text-sm text-gray-500">맞춤 프롬프트 생성 중...</p>
+        <p className="text-sm text-gray-500">맞춤 프롬프트 뽑아오는 중... ✨</p>
       </div>
     )
   }
 
   if (error || !result) {
     return (
-      <p className="text-sm text-red-500 text-center py-4">
-        프롬프트 생성에 실패했습니다. 다시 시도해주세요.
-      </p>
+      <div className="flex flex-col items-center py-6 space-y-3">
+        <p className="text-2xl">🤯</p>
+        <p className="text-sm text-gray-600 text-center">
+          AI가 잠깐 멍 때리고 있어요<br />
+          <span className="text-gray-400">조금 있다 다시 시도해보세요</span>
+        </p>
+        <button
+          type="button"
+          onClick={() => setRetryCount(c => c + 1)}
+          className="text-sm text-blue-500 hover:text-blue-700 underline transition-colors"
+        >
+          다시 시도하기 →
+        </button>
+      </div>
     )
   }
 
