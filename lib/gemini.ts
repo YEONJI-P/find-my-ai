@@ -1,5 +1,6 @@
 import { GoogleGenAI } from '@google/genai'
-import { detectConcernType, buildSystemInstruction, type PromptParams } from '@/lib/gemini-prompt'
+import { buildPromptInput, type PromptParams } from '@/lib/gemini-prompt'
+import geminiContext from '@/data/gemini-context.json'
 
 if (!process.env.GEMINI_API_KEY) {
   throw new Error('GEMINI_API_KEY 환경변수가 설정되지 않았습니다')
@@ -10,48 +11,49 @@ export type GeneratePromptParams = {
   occupationOrHobby: string
   detail?: string
   followUp?: string
-  concern: string
+  concern?: string
+  mbti?: string
   aiName: string
-  aiDescription: string
 }
 
 export type GeneratePromptResult = {
+  resultMessage: string
   comment: string
   prompt: string
   answer: string
 }
 
 export async function generatePromptJSON(params: GeneratePromptParams): Promise<GeneratePromptResult> {
-  const concernType = detectConcernType(params.concern)
-
   const promptParams: PromptParams = {
-    concernType,
     occupationOrHobby: params.occupationOrHobby,
     detail: params.detail,
     followUp: params.followUp,
     recommendedAI: params.aiName,
     concern: params.concern,
+    mbti: params.mbti,
   }
 
-  const systemInstruction = buildSystemInstruction(promptParams)
+  const input = buildPromptInput(promptParams)
 
   const response = await genAI.models.generateContent({
     model: 'gemini-2.5-flash-lite',
-    contents: systemInstruction,
     config: {
+      systemInstruction: JSON.stringify(geminiContext.systemInstruction),
       responseMimeType: 'application/json',
     },
+    contents: JSON.stringify(input),
   })
 
   const text = response.text ?? '{}'
   try {
     const parsed = JSON.parse(text) as GeneratePromptResult
     return {
+      resultMessage: parsed.resultMessage ?? '',
       comment: parsed.comment ?? '',
       prompt: parsed.prompt ?? '',
       answer: parsed.answer ?? '',
     }
   } catch {
-    return { comment: '', prompt: text, answer: '' }
+    return { resultMessage: '', comment: '', prompt: text, answer: '' }
   }
 }

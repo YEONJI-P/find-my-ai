@@ -155,21 +155,6 @@
     }
   },
 
-  "resultMessages": {
-    "description": "결과 화면에서 '왜 이 AI가 나에게 맞는지' 설명하는 템플릿",
-    "templates": {
-      "chatgpt":    "{occupation}에게 가장 범용적인 AI예요. 음성 대화로도 쓸 수 있어서 타이핑이 귀찮을 때도 편해요.",
-      "clova_x":    "네이버 계정으로 바로 시작할 수 있고, 한국 로컬 정보에 특히 강해서 {occupation}에게 딱 맞아요.",
-      "wrtn":       "한국어 글쓰기 템플릿이 풍부해서 {concern}처럼 글 쓰는 게 막막할 때 바로 도움이 돼요.",
-      "gemini":     "구글 계정만 있으면 바로 시작 가능하고, 유튜브·문서 요약까지 한 번에 되는 게 강점이에요.",
-      "copilot":    "엑셀·워드·PPT 안에서 바로 쓸 수 있어서 {occupation} 업무 효율이 확 올라가요.",
-      "perplexity": "모든 답변에 출처가 붙어 있어서 {concern}처럼 정확한 정보가 중요할 때 믿고 쓸 수 있어요.",
-      "claude":     "번역투 없는 자연스러운 한국어로 {concern}에 대한 글이나 기획안을 뚝딱 만들어줘요.",
-      "canva_ai":   "디자인 경험 없어도 텍스트 몇 줄로 SNS 썸네일·포스터를 바로 만들 수 있어요.",
-      "lilys":      "링크만 붙여넣으면 끝! {occupation}처럼 바쁜 분들이 긴 영상·기사를 빠르게 파악하는 데 최고예요."
-    }
-  },
-
   "easterEggCondition": {
     "occupationCategory": "it",
     "redirectTo": "easter_egg"

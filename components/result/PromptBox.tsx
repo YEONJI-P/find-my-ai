@@ -7,9 +7,11 @@ import type { RankedAI, Answers } from '@/lib/types'
 interface PromptBoxProps {
   topAI: RankedAI
   answers: Answers
+  onResultMessage?: (msg: string) => void
 }
 
 type PromptResult = {
+  resultMessage: string
   comment: string
   prompt: string
   answer: string
@@ -33,16 +35,15 @@ function buildOccupationOrHobby(answers: Answers): string {
   return occupationLabels[answers.occupation_category ?? ''] ?? answers.occupation_category ?? ''
 }
 
-export default function PromptBox({ topAI, answers }: PromptBoxProps) {
+export default function PromptBox({ topAI, answers, onResultMessage }: PromptBoxProps) {
   const [result, setResult] = useState<PromptResult | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const [copied, setCopied] = useState(false)
 
   useEffect(() => {
-    const hasConcern = !!answers.main_concern
     const hasContext = !!(answers.occupation_category || (answers.hobby && answers.hobby.length > 0))
-    if (!hasConcern || !hasContext) {
+    if (!hasContext) {
       setLoading(false)
       return
     }
@@ -60,6 +61,7 @@ export default function PromptBox({ topAI, answers }: PromptBoxProps) {
         detail: answers.occupation_detail,
         followUp: answers.follow_up,
         concern: answers.main_concern,
+        mbti: answers.mbti,
         aiName: topAI.name,
         aiDescription: topAI.shortDescription,
       }),
@@ -70,7 +72,12 @@ export default function PromptBox({ topAI, answers }: PromptBoxProps) {
         return res.json() as Promise<PromptResult>
       })
       .then(data => {
-        if (!controller.signal.aborted) setResult(data)
+        if (!controller.signal.aborted) {
+          setResult(data)
+          if (data.resultMessage) {
+            onResultMessage?.(data.resultMessage)
+          }
+        }
       })
       .catch(() => {
         if (!controller.signal.aborted) setError(true)
@@ -80,7 +87,7 @@ export default function PromptBox({ topAI, answers }: PromptBoxProps) {
       })
 
     return () => controller.abort()
-  }, [topAI, answers])
+  }, [topAI, answers, onResultMessage])
 
   const handleCopy = async () => {
     if (!result?.prompt) return

@@ -39,7 +39,9 @@ export default function AiCard({ ai, isTop }: AiCardProps) {
             </li>
           ))}
         </ul>
-        <p className="text-sm text-blue-700 bg-blue-50 rounded-lg p-3">{ai.resultMessage}</p>
+        {isTop && ai.resultMessage && (
+          <p className="text-sm text-blue-700 bg-blue-50 rounded-lg p-3">{ai.resultMessage}</p>
+        )}
         <a
           href={ai.accessInfo.url}
           target="_blank"

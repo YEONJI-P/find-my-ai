@@ -329,6 +329,7 @@
       "question": "MBTI를 알고 계신가요? (선택)",
       "description": "결과에 살짝 반영돼요 😄 모르시면 건너뛰어도 돼요!",
       "options": [
+        { "value": "unknown", "label": "모르겠어요 / 건너뛰기", "emoji": "🤷" },
         { "value": "INTJ", "label": "INTJ" }, { "value": "INTP", "label": "INTP" },
         { "value": "ENTJ", "label": "ENTJ" }, { "value": "ENTP", "label": "ENTP" },
         { "value": "INFJ", "label": "INFJ" }, { "value": "INFP", "label": "INFP" },
@@ -336,8 +337,7 @@
         { "value": "ISTJ", "label": "ISTJ" }, { "value": "ISFJ", "label": "ISFJ" },
         { "value": "ESTJ", "label": "ESTJ" }, { "value": "ESFJ", "label": "ESFJ" },
         { "value": "ISTP", "label": "ISTP" }, { "value": "ISFP", "label": "ISFP" },
-        { "value": "ESTP", "label": "ESTP" }, { "value": "ESFP", "label": "ESFP" },
-        { "value": "unknown", "label": "모르겠어요 / 건너뛰기", "emoji": "🤷" }
+        { "value": "ESTP", "label": "ESTP" }, { "value": "ESFP", "label": "ESFP" }
       ],
       "next": "main_concern"
     },
@@ -346,8 +346,9 @@
       "id": "main_concern",
       "step": 9,
       "type": "text_input",
+      "optional": true,
       "question": "요즘 가장 큰 고민이 뭐예요?",
-      "description": "AI가 맞춤 프롬프트를 바로 만들어드려요 ✨",
+      "description": "AI가 맞춤 프롬프트를 바로 만들어드려요 ✨ (선택 사항)",
       "placeholder": {
         "student": "예) 영어 에세이 쓰는 법을 모르겠어요",
         "jobseeker": "예) 자소서 첫 문장을 어떻게 시작할지 모르겠어요",
@@ -388,16 +389,5 @@
         }
       ]
     }
-  },
-
-  "mbtiHints": {
-    "I": "혼자 조용히 쓰기 좋은 AI예요.",
-    "E": "대화하듯 쓸수록 더 잘 맞는 AI예요.",
-    "T": "논리적이고 구조화된 답변을 잘 뽑아줘요.",
-    "F": "공감 어린 답변이 필요할 때 특히 좋아요.",
-    "J": "체계적인 계획 세우기에 강해요.",
-    "P": "아이디어 탐색·브레인스토밍에 강해요.",
-    "N": "추상적인 개념도 잘 풀어줘요.",
-    "S": "구체적이고 실용적인 답변을 잘 줘요."
   }
 }

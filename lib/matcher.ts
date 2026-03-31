@@ -103,18 +103,8 @@ export function calculateTopAIs(answers: Answers): RankedAI[] {
     .sort((a, b) => b.score - a.score || b.literacyScore - a.literacyScore)
     .slice(0, 3)
 
-  const templates = matchingRulesData.resultMessages.templates as Record<string, string>
-  const occupationLabel = answers.hobby && answers.hobby.length > 0
-    ? answers.hobby.map(h => HOBBY_LABELS[h] ?? h).join('·')
-    : OCCUPATION_LABELS[answers.occupation_category ?? ''] ?? answers.occupation_category ?? ''
-
   return sorted.map((s, index) => {
     const rank = (index + 1) as 1 | 2 | 3
-    const msgTemplate = templates[s.id] ?? ''
-    const resultMessage = msgTemplate
-      .replace(/{occupation}/g, occupationLabel)
-      .replace(/{concern}/g, answers.main_concern ?? '')
-
     return {
       rank,
       id: s.id,
@@ -123,7 +113,7 @@ export function calculateTopAIs(answers: Answers): RankedAI[] {
       shortDescription: s.tool.shortDescription,
       strengths: s.tool.strengths,
       accessInfo: s.tool.accessInfo,
-      resultMessage,
+      resultMessage: '',
     }
   })
 }

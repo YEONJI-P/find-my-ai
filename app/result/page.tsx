@@ -15,6 +15,7 @@ type SurveyResults = {
 export default function ResultPage() {
   const router = useRouter()
   const [results, setResults] = useState<SurveyResults | null>(null)
+  const [topResultMessage, setTopResultMessage] = useState('')
 
   useEffect(() => {
     const raw = sessionStorage.getItem('surveyResults')
@@ -34,6 +35,7 @@ export default function ResultPage() {
   const { rankedAIs, answers } = results
   const topAI = rankedAIs[0]
   const otherAIs = rankedAIs.slice(1)
+  const topAIWithMessage = topAI ? { ...topAI, resultMessage: topResultMessage } : topAI
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
@@ -45,9 +47,15 @@ export default function ResultPage() {
           </h1>
         </div>
 
-        {topAI && <AiCard ai={topAI} isTop={true} />}
+        {topAIWithMessage && <AiCard ai={topAIWithMessage} isTop={true} />}
 
-        {topAI && <PromptBox topAI={topAI} answers={answers} />}
+        {topAI && (
+          <PromptBox
+            topAI={topAI}
+            answers={answers}
+            onResultMessage={setTopResultMessage}
+          />
+        )}
 
         {otherAIs.length > 0 && (
           <div className="space-y-3">

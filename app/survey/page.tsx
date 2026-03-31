@@ -100,6 +100,12 @@ export default function SurveyPage() {
     router.push('/result')
   }, [answers, mainConcernText, router])
 
+  const handleSkipConcern = useCallback(() => {
+    const topAIs = calculateTopAIs(answers)
+    sessionStorage.setItem('surveyResults', JSON.stringify({ rankedAIs: topAIs, answers }))
+    router.push('/result')
+  }, [answers, router])
+
   if (!currentQuestion) return null
 
   const currentStep = Math.min(history.length + 1, TOTAL_STEPS)
@@ -116,6 +122,7 @@ export default function SurveyPage() {
         <div className="flex-1">
           {currentQuestion.type === 'grid_select' && (
             <GridSelect
+              key={currentQuestionId}
               question={currentQuestion.question ?? ''}
               description={currentQuestion.description}
               options={currentQuestion.options ?? []}
@@ -125,6 +132,7 @@ export default function SurveyPage() {
 
           {currentQuestion.type === 'multi_select' && (
             <GridSelect
+              key={currentQuestionId}
               question={currentQuestion.question ?? ''}
               description={currentQuestion.description}
               options={currentQuestion.options ?? []}
@@ -169,6 +177,15 @@ export default function SurveyPage() {
               >
                 내 AI 찾기 ✨
               </Button>
+              {currentQuestion.optional && (
+                <button
+                  type="button"
+                  onClick={handleSkipConcern}
+                  className="w-full text-sm text-gray-400 hover:text-gray-600 transition-colors py-2"
+                >
+                  건너뛰기 →
+                </button>
+              )}
             </div>
           )}
         </div>
