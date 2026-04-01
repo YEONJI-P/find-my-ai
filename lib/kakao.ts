@@ -24,8 +24,10 @@ type KakaoShareParams = {
 }
 
 const SITE_URL = 'https://find-my-ai.vercel.app'
+const DEFAULT_IMAGE = `${SITE_URL}/og-image.png`
 
 export function initKakao() {
+  if (typeof window === 'undefined') return
   const key = process.env.NEXT_PUBLIC_KAKAO_JS_KEY
   if (!key) return
   if (window.Kakao?.isInitialized()) return
@@ -34,9 +36,9 @@ export function initKakao() {
 
 export function buildShareParams(ai: RankedAI): KakaoShareParams {
   const raw = ai.resultMessage
-  const truncated = raw.length > 30 ? `"${raw.slice(0, 30)}..."` : `"${raw}"`
+  const truncated = raw.length > 30 ? `"${raw.slice(0, 30).trimEnd()}..."` : `"${raw}"`
   const link = { mobileWebUrl: SITE_URL, webUrl: SITE_URL }
-  const imageUrl = `${SITE_URL}/characters/${ai.id}.png`
+  const imageUrl = ai.id ? `${SITE_URL}/characters/${ai.id}.png` : DEFAULT_IMAGE
 
   return {
     objectType: 'feed',
@@ -51,6 +53,7 @@ export function buildShareParams(ai: RankedAI): KakaoShareParams {
 }
 
 export function shareToKakao(ai: RankedAI) {
+  if (typeof window === 'undefined') return
   initKakao()
   window.Kakao?.Share.sendDefault(buildShareParams(ai))
 }

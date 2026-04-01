@@ -19,7 +19,7 @@ describe('buildShareParams', () => {
 
   it('description은 resultMessage 앞 30자 + 말줄임이다', () => {
     const params = buildShareParams(mockAI)
-    expect(params.content.description).toBe('"복잡한 내용도 차분하게 정리해주는 AI예요. 분석적인 ..."')
+    expect(params.content.description).toBe('"복잡한 내용도 차분하게 정리해주는 AI예요. 분석적인..."')
   })
 
   it('resultMessage가 30자 이하면 말줄임 없이 그대로다', () => {
