@@ -34,7 +34,7 @@ export function initKakao() {
 
 export function buildShareParams(ai: RankedAI): KakaoShareParams {
   const raw = ai.resultMessage
-  const truncated = raw.length > 23 ? `"${raw.slice(0, 23)}..."` : `"${raw}"`
+  const truncated = raw.length > 30 ? `"${raw.slice(0, 30)}..."` : `"${raw}"`
   const link = { mobileWebUrl: SITE_URL, webUrl: SITE_URL }
   const imageUrl = `${SITE_URL}/characters/${ai.id}.png`
 
