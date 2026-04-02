@@ -58,6 +58,7 @@
         "pc_main": 3
       }
     },
+    "accessibilityScore": { "signupEase": 5, "koreanUI": 4, "mobileUX": 4 },
     "characterDescription": "백수의 왕 사자처럼 어떤 질문도 당당하고 막힘없이 해결하는 AI의 대명사. 카카오톡에도 탑재되어 국내에서 가장 접근하기 쉬운 AI예요."
   },
   {
@@ -181,6 +182,7 @@
         "pc_main": 3
       }
     },
+    "accessibilityScore": { "signupEase": 5, "koreanUI": 5, "mobileUX": 4 },
     "characterDescription": "영리한 여우처럼 글쓰기의 핵심을 빠르게 꿰뚫는 AI. 자소서부터 SNS 글까지 한국어 템플릿이 풍부해 막힐 때 바로 꺼내 쓸 수 있어요."
   },
   {
@@ -242,6 +244,7 @@
         "pc_main": 4
       }
     },
+    "accessibilityScore": { "signupEase": 4, "koreanUI": 4, "mobileUX": 4 },
     "characterDescription": "구글이 만든 안드로이드처럼 디지털 세계를 자유롭게 연결하는 AI. Gmail·드라이브·유튜브를 계정 하나로 묶어 함께 쓸 수 있어요."
   },
   {
@@ -304,6 +307,7 @@
         "pc_main": 5
       }
     },
+    "accessibilityScore": { "signupEase": 3, "koreanUI": 3, "mobileUX": 3 },
     "characterDescription": "충직한 리트리버처럼 업무 현장에서 언제나 옆에 있는 AI. 엑셀·워드·PPT 안에서 바로 쓸 수 있어 사무 업무 효율이 확 달라져요."
   },
   {
@@ -365,6 +369,7 @@
         "pc_main": 4
       }
     },
+    "accessibilityScore": { "signupEase": 4, "koreanUI": 2, "mobileUX": 3 },
     "characterDescription": "밤눈이 밝은 부엉이처럼 거짓 없이 진실만 꿰뚫는 AI. 모든 답변에 출처 링크를 자동으로 달아줘 정확한 근거가 필요할 때 가장 믿을 수 있어요."
   },
   {
@@ -426,6 +431,7 @@
         "pc_main": 4
       }
     },
+    "accessibilityScore": { "signupEase": 2, "koreanUI": 2, "mobileUX": 4 },
     "characterDescription": "우아하고 도도한 고양이처럼 섬세한 문장력을 가진 AI. 번역투 없는 자연스러운 한국어 글쓰기와 방대한 문서 분석에서 가장 탁월해요."
   },
   {
@@ -457,7 +463,7 @@
       ],
       "signupRequired": true,
       "freeAvailable": true,
-      "url": "https://www.canva.com"
+      "url": "https://www.canva.com/ai"
     },
     "bestFor": [
       "자영업 홍보물 제작",
@@ -487,6 +493,7 @@
         "pc_main": 3
       }
     },
+    "accessibilityScore": { "signupEase": 5, "koreanUI": 4, "mobileUX": 4 },
     "characterDescription": "상황마다 색을 바꾸는 카멜레온처럼 어떤 디자인 요구에도 맞춰 변신하는 AI. 텍스트 몇 줄만 입력하면 SNS 썸네일·PPT·포스터가 뚝딱 완성돼요."
   },
   {

@@ -196,7 +196,7 @@
     "mbti": {
       "id": "mbti",
       "step": 7,
-      "type": "single_select",
+      "type": "mbti_select",
       "optional": true,
       "question": "MBTI를 알고 계신가요? (선택)",
       "description": "결과에 살짝 반영돼요 😄 모르시면 건너뛰어도 돼요!",

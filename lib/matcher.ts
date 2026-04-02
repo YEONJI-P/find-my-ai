@@ -29,16 +29,26 @@ function getAgeBonus(age: string, aiId: string): number {
   return ageBonusRules[aiId] ?? 0
 }
 
+function getAccessibilityBonus(tool: typeof aiTools[number]): number {
+  const a = (tool as unknown as { accessibilityScore?: { signupEase: number; koreanUI: number; mobileUX: number } }).accessibilityScore
+  if (!a) return 0
+  return (a.signupEase + a.koreanUI + a.mobileUX) / 3
+}
+
 export function calculateTopAIs(answers: Answers): RankedAI[] {
-  const scores = aiTools.map((tool) => {
+  const EXCLUDED_IDS = ['lilys', 'clova_x']
+
+  const scores = aiTools.filter(tool => !EXCLUDED_IDS.includes(tool.id)).map((tool) => {
     const id = tool.id
     let score = 0
 
     const occupationScore = (tool.matchingWeight.occupation as Record<string, number>)[answers.occupation_category ?? ''] ?? 0
     score += occupationScore * weights.occupation
 
+    let occupationDetailScore = 0
     if (answers.occupation_category && answers.occupation_detail) {
-      score += getOccupationDetailScore(answers.occupation_category, answers.occupation_detail, id) * weights.occupationDetail
+      occupationDetailScore = getOccupationDetailScore(answers.occupation_category, answers.occupation_detail, id)
+      score += occupationDetailScore * weights.occupationDetail
     }
 
     if (answers.interests && answers.interests.length > 0) {
@@ -55,11 +65,15 @@ export function calculateTopAIs(answers: Answers): RankedAI[] {
       score += getAgeBonus(answers.age, id)
     }
 
-    return { id, score, literacyScore, tool }
+    if (answers.digital_literacy === 'beginner') {
+      score += getAccessibilityBonus(tool) * 0.05
+    }
+
+    return { id, score, literacyScore, occupationDetailScore, tool }
   })
 
   const sorted = scores
-    .sort((a, b) => b.score - a.score || b.literacyScore - a.literacyScore)
+    .sort((a, b) => b.score - a.score || b.literacyScore - a.literacyScore || b.occupationDetailScore - a.occupationDetailScore)
     .slice(0, 3)
 
   const topScore = sorted[0]?.score ?? 1

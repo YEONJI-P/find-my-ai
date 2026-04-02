@@ -11,8 +11,8 @@
 
   "weights": {
     "occupation": 0.30,
-    "occupationDetail": 0.20,
-    "interests": 0.20,
+    "occupationDetail": 0.15,
+    "interests": 0.25,
     "device": 0.15,
     "digitalLiteracy": 0.15
   },
@@ -104,12 +104,12 @@
     },
 
     "ageBonus": {
-      "description": "나이대별 미세 보정 (선택적 적용, 가중치 낮음)",
-      "teen":         { "wrtn": 1, "chatgpt": 1, "lilys": 1 },
-      "twenties":     { "wrtn": 1, "claude": 1, "perplexity": 1 },
-      "thirties":     { "copilot": 1, "gemini": 1, "claude": 1 },
-      "forties":      { "copilot": 1, "clova_x": 1, "canva_ai": 1 },
-      "fifties_plus": { "clova_x": 2, "lilys": 2 }
+      "description": "나이대별 미세 보정 (선택적 적용, 가중치 낮음). 값은 0.1 단위로 정규화되어 가중치 합산 스케일과 통일.",
+      "teen":         { "wrtn": 0.1, "chatgpt": 0.1 },
+      "twenties":     { "wrtn": 0.1, "claude": 0.1, "perplexity": 0.1 },
+      "thirties":     { "copilot": 0.1, "gemini": 0.1, "claude": 0.1 },
+      "forties":      { "copilot": 0.1, "canva_ai": 0.1, "chatgpt": 0.1, "gemini": 0.1 },
+      "fifties_plus": { "chatgpt": 0.2, "gemini": 0.1, "canva_ai": 0.1 }
     }
   },
 

@@ -37,7 +37,7 @@ export type QuestionOption = {
 export type Question = {
   id: string
   step: number | null
-  type: 'single_select' | 'grid_select' | 'text_input' | 'multi_select' | 'easter_egg'
+  type: 'single_select' | 'grid_select' | 'text_input' | 'multi_select' | 'easter_egg' | 'mbti_select'
   question?: string
   description?: string
   optional?: boolean

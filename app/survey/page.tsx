@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import ProgressBar from '@/components/survey/ProgressBar'
 import QuestionCard from '@/components/survey/QuestionCard'
 import GridSelect from '@/components/survey/GridSelect'
+import MbtiSelect from '@/components/survey/MbtiSelect'
 import { Button } from '@/components/ui/button'
 import { calculateTopAIs } from '@/lib/matcher'
 import questionsData from '@/data/questions.json'
@@ -129,6 +130,15 @@ export default function SurveyPage() {
               question={currentQuestion.question ?? ''}
               description={currentQuestion.description}
               options={currentQuestion.options ?? []}
+              onSelect={handleSelect}
+            />
+          )}
+
+          {currentQuestion.type === 'mbti_select' && (
+            <MbtiSelect
+              key={currentQuestionId}
+              question={currentQuestion.question ?? ''}
+              description={currentQuestion.description}
               onSelect={handleSelect}
             />
           )}
