@@ -30,7 +30,7 @@ const CHARACTER_GRADIENTS: Record<string, string> = {
 }
 const DEFAULT_GRADIENT = 'from-gray-400 to-gray-600'
 
-function CharacterImage({ ai }: { ai: RankedAI }) {
+function CharacterBanner({ ai }: { ai: RankedAI }) {
   const [imgError, setImgError] = useState(false)
   const gradient = CHARACTER_GRADIENTS[ai.id] ?? DEFAULT_GRADIENT
 
@@ -38,8 +38,8 @@ function CharacterImage({ ai }: { ai: RankedAI }) {
     return (
       <div
         data-character-placeholder=""
-        className={`bg-gradient-to-br ${gradient} flex items-center justify-center text-4xl mx-auto mb-3 rounded-2xl`}
-        style={{ width: 88, height: 88 }}
+        className={`w-full bg-gradient-to-br ${gradient} flex items-center justify-center text-6xl rounded-t-xl`}
+        style={{ height: 160 }}
       >
         🤖
       </div>
@@ -47,13 +47,13 @@ function CharacterImage({ ai }: { ai: RankedAI }) {
   }
 
   return (
-    <div className="mx-auto mb-3" style={{ width: 88, height: 88 }}>
+    <div className="w-full rounded-t-xl overflow-hidden" style={{ height: 160 }}>
       <Image
         src={`/characters/${ai.id}.png`}
         alt={`${ai.name} 캐릭터`}
-        width={88}
-        height={88}
-        className="rounded-2xl object-cover"
+        width={400}
+        height={160}
+        className="w-full h-full object-cover"
         onError={() => setImgError(true)}
       />
     </div>
@@ -63,16 +63,16 @@ function CharacterImage({ ai }: { ai: RankedAI }) {
 export default function AiCard({ ai, isTop }: AiCardProps) {
   return (
     <Card
-      className={`border-2 ${RANK_STYLES[ai.rank]} ${isTop ? 'shadow-lg' : ''}`}
+      className={`border-2 ${RANK_STYLES[ai.rank]} ${isTop ? 'shadow-lg overflow-hidden' : ''}`}
       {...(isTop ? { 'data-share-card': '' } : {})}
     >
+      {isTop && <CharacterBanner ai={ai} />}
+
       <CardContent className={`p-4 space-y-3 ${isTop ? 'text-center' : ''}`}>
         <div className={`flex items-center ${isTop ? 'justify-center' : 'justify-between'}`}>
           <span className="text-sm font-semibold text-gray-500">{RANK_LABELS[ai.rank]}</span>
           {!isTop && <Badge variant="secondary">{ai.badge}</Badge>}
         </div>
-
-        {isTop && <CharacterImage ai={ai} />}
 
         <div>
           <h3 className="text-lg font-bold text-gray-900">{ai.name}</h3>
