@@ -305,6 +305,15 @@ NEXT_PUBLIC_KAKAO_JS_KEY=your_kakao_js_key
 
 ---
 
+### interests 필드 분리 시도 및 롤백
+
+- **시도:** `PromptInput`에 `interests?: string` 별도 필드를 추가해 `occupation`과 분리하여 Gemini에 전달
+- **문제:** Gemini API가 optional 필드를 일관성 없이 처리함. `interests` 필드 유무에 따라 응답 품질 편차 발생 (optional 처리 불안정)
+- **결정:** `bffd707` 커밋에서 롤백. `interests`를 다시 `occupation` 문자열에 합쳐 전달하도록 복원
+- **남은 과제:** `entertainment: '게임·엔터'` 같은 레이블이 occupation 맥락에서 직군으로 오해될 수 있음. 레이블 자체를 `'게임하기 & 콘텐츠소비'`처럼 취미임을 명시하는 방향으로 보완 예정. 별도 필드 재도입은 Gemini 시스템 인스트럭션 보강 후 재검토.
+
+---
+
 ### CLOVA X 존속 여부 검토
 
 CLOVA X(네이버 클로바X)가 서비스 종료 수순에 접어들면서, 현재 9종 AI 목록에 포함된 CLOVA X를 **제거할지, 아니면 테스트 목적으로 남겨둘지 고민 중**.

@@ -11,7 +11,7 @@ const INTEREST_LABELS: Record<string, string> = {
   health: '건강·운동',
   cooking: '요리',
   shopping: '쇼핑',
-  entertainment: '게임·엔터',
+  entertainment: '게임 & 콘텐츠 소비',
 }
 
 export type PromptParams = {
@@ -26,6 +26,7 @@ export type PromptParams = {
 export type PromptInput = {
   recommendedAI: string
   occupation: string
+  interests?: string
   concern?: string
   mbti?: string
 }
@@ -36,14 +37,18 @@ export function buildPromptInput(params: PromptParams): PromptInput {
     .map(i => INTEREST_LABELS[i] ?? i)
     .join('·') || undefined
 
-  const occupation = [params.occupationOrHobby, params.detail, interestStr]
-    .filter(Boolean)
-    .join(', ')
+  const occupationParts = [
+    params.occupationOrHobby ? `배경: ${params.occupationOrHobby}` : undefined,
+    params.detail ? `세부: ${params.detail}` : undefined,
+  ].filter(Boolean)
+  const occupation = occupationParts.join(', ')
 
   const input: PromptInput = {
     recommendedAI: params.recommendedAI,
     occupation,
   }
+
+  if (interestStr) input.interests = interestStr
 
   const concern = params.concern?.trim()
   if (concern) input.concern = concern

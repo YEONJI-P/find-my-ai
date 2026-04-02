@@ -61,24 +61,53 @@ function CharacterBanner({ ai }: { ai: RankedAI }) {
 }
 
 export default function AiCard({ ai, isTop }: AiCardProps) {
-  return (
-    <Card
-      className={`border-2 ${RANK_STYLES[ai.rank]} ${isTop ? 'shadow-lg overflow-hidden' : ''}`}
-      {...(isTop ? { 'data-share-card': '' } : {})}
-    >
-      {isTop && <CharacterBanner ai={ai} />}
-
-      <CardContent className={`p-4 space-y-3 `}>
-        <div className={`flex items-center justify-between`}>
+  if (isTop) {
+    return (
+      <Card
+        className={`border-2 ${RANK_STYLES[ai.rank]} shadow-lg overflow-hidden`}
+        data-share-card=""
+      >
+        <div className="flex items-center justify-between px-4 pt-4">
           <span className="text-sm font-semibold text-gray-500">{RANK_LABELS[ai.rank]}</span>
           <div className="flex items-center gap-2">
-            {isTop ? (
-              <span className="text-base font-bold text-yellow-500">{ai.compatibilityPercent}% 궁합</span>
-            ) : (
-              <span className="text-xs text-gray-400">{ai.compatibilityPercent}% 궁합</span>
-            )}
+            <span className="text-base font-bold text-yellow-500">{ai.compatibilityPercent}% 궁합</span>
             <Badge variant="secondary">{ai.badge}</Badge>
           </div>
+        </div>
+
+        <div className="text-center pt-3 pb-2 px-4">
+          <h2 className="text-2xl font-bold text-gray-900">나는 {ai.name} 타입! 🎉</h2>
+        </div>
+
+        <CharacterBanner ai={ai} />
+
+        <CardContent className="p-4 space-y-4">
+          {ai.characterDescription && (
+            <p className="text-sm text-blue-700 bg-blue-50 rounded-lg p-3 leading-relaxed">{ai.characterDescription}</p>
+          )}
+
+          {ai.resultMessage && (
+            <p className="text-sm text-gray-600 leading-relaxed">{ai.resultMessage}</p>
+          )}
+
+          <a
+            href={ai.accessInfo.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block text-center text-sm font-medium text-blue-600 hover:text-blue-800 underline"
+          >
+            {ai.name} 시작하기 →
+          </a>
+        </CardContent>
+      </Card>
+    )
+  }
+
+  return (
+    <Card className={`border-2 ${RANK_STYLES[ai.rank]}`}>
+      <CardContent className="p-4 space-y-3">
+        <div className="flex items-center justify-between">
+          <span className="text-sm font-semibold text-gray-500">{RANK_LABELS[ai.rank]}</span>
         </div>
 
         <div>
@@ -86,26 +115,14 @@ export default function AiCard({ ai, isTop }: AiCardProps) {
           <p className="text-sm text-gray-600 mt-1">{ai.shortDescription}</p>
         </div>
 
-        {isTop && ai.characterDescription && (
-          <p className="text-xs text-gray-500 bg-gray-100 rounded-lg px-3 py-2 leading-relaxed">
-            {ai.characterDescription}
-          </p>
-        )}
-
-        {!isTop && (
-          <ul className="space-y-1">
-            {ai.strengths.map((s, i) => (
-              <li key={i} className="text-sm text-gray-700 flex gap-2">
-                <span className="text-blue-500">✓</span>
-                {s}
-              </li>
-            ))}
-          </ul>
-        )}
-
-        {isTop && ai.resultMessage && (
-          <p className="text-sm text-blue-700 bg-blue-50 rounded-lg p-3 text-left">{ai.resultMessage}</p>
-        )}
+        <ul className="space-y-1">
+          {ai.strengths.map((s, i) => (
+            <li key={i} className="text-sm text-gray-700 flex gap-2">
+              <span className="text-blue-500">✓</span>
+              {s}
+            </li>
+          ))}
+        </ul>
 
         <a
           href={ai.accessInfo.url}

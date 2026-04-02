@@ -41,11 +41,8 @@ export default function ResultPage() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <div className="max-w-md mx-auto px-4 py-8 space-y-6">
-        <div className="text-center space-y-1">
+        <div className="text-center">
           <p className="text-sm text-blue-600 font-medium">분석 완료!</p>
-          <h1 className="text-2xl font-bold text-gray-900">
-            나는 {topAI?.name} 타입! 🎉
-          </h1>
         </div>
 
         {topAIWithMessage && <AiCard ai={topAIWithMessage} isTop={true} />}
