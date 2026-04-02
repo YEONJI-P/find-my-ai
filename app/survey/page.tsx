@@ -164,7 +164,7 @@ export default function SurveyPage() {
                 <button
                   type="button"
                   onClick={handleSkipConcern}
-                  className="w-full text-sm text-gray-400 hover:text-gray-600 transition-colors py-2"
+                  className="w-full text-sm text-gray-400 [@media(hover:hover)]:hover:text-gray-600 active:text-gray-600 transition-colors py-2"
                 >
                   건너뛰기 →
                 </button>
@@ -175,7 +175,7 @@ export default function SurveyPage() {
 
         <button
           onClick={handleBack}
-          className="text-sm text-gray-400 hover:text-gray-600 transition-colors self-start"
+          className="text-sm text-gray-400 [@media(hover:hover)]:hover:text-gray-600 active:text-gray-600 transition-colors self-start"
         >
           ← 이전으로
         </button>

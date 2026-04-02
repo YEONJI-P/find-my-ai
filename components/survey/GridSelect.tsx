@@ -46,7 +46,7 @@ export default function GridSelect({
               key={option.value}
               type="button"
               onClick={() => onSelect(option.value)}
-              className="flex flex-col items-center justify-center p-4 rounded-xl border-2 border-gray-200 hover:border-blue-400 hover:bg-blue-50 transition-all duration-150 gap-2"
+              className="flex flex-col items-center justify-center p-4 rounded-xl border-2 border-gray-200 bg-white [@media(hover:hover)]:hover:border-blue-400 [@media(hover:hover)]:hover:bg-blue-50/50 [@media(hover:hover)]:hover:shadow-sm active:scale-[0.98] active:border-blue-300 active:bg-blue-50 transition-[border-color,background-color,box-shadow,transform] duration-200 ease-out gap-2"
             >
               {option.emoji && <span className="text-2xl">{option.emoji}</span>}
               <span className="text-sm font-medium text-gray-800 text-center">{option.label}</span>
@@ -71,10 +71,10 @@ export default function GridSelect({
               key={option.value}
               type="button"
               onClick={() => toggleOption(option.value)}
-              className={`flex flex-col items-center justify-center p-4 rounded-xl border-2 transition-all duration-150 gap-2 ${
+              className={`flex flex-col items-center justify-center p-4 rounded-xl border-2 transition-[border-color,background-color,box-shadow,transform] duration-200 ease-out gap-2 ${
                 isSelected
-                  ? 'border-blue-500 bg-blue-50'
-                  : 'border-gray-200 bg-white active:border-blue-300 active:bg-blue-50'
+                  ? 'border-blue-500 bg-blue-50 shadow-md'
+                  : 'border-gray-200 bg-white [@media(hover:hover)]:hover:border-blue-400 [@media(hover:hover)]:hover:bg-blue-50/50 [@media(hover:hover)]:hover:shadow-sm active:scale-[0.98] active:border-blue-300 active:bg-blue-50'
               }`}
             >
               {option.emoji && <span className="text-2xl">{option.emoji}</span>}

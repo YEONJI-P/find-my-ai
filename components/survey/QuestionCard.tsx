@@ -20,7 +20,7 @@ export default function QuestionCard({ question, description, options, onSelect 
           <Button
             key={option.value}
             variant="outline"
-            className="w-full justify-start text-left h-auto py-3 px-4 text-base"
+            className="w-full justify-start text-left h-auto py-3 px-4 text-base border-2 border-gray-200 bg-white [@media(hover:hover)]:hover:border-blue-400 [@media(hover:hover)]:hover:bg-blue-50/50 active:scale-[0.98] active:border-blue-300 active:bg-blue-50 transition-[border-color,background-color,box-shadow,transform] duration-200 ease-out"
             onClick={() => onSelect(option.value)}
           >
             {option.emoji && <span className="mr-2">{option.emoji}</span>}
