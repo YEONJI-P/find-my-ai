@@ -4,7 +4,11 @@
     "name": "ChatGPT",
     "provider": "OpenAI",
     "logo": "/characters/chatgpt.png",
-    "tags": ["범용", "음성대화", "만능"],
+    "tags": [
+      "범용",
+      "음성대화",
+      "만능"
+    ],
     "badge": "🌐 만능 해결사",
     "shortDescription": "무엇이든 물어보세요. 가장 자연스러운 대화형 AI.",
     "strengths": [
@@ -12,14 +16,25 @@
       "전화하듯 쓰는 음성 대화 모드",
       "영어·다국어 처리 압도적 성능"
     ],
-    "weaknesses": ["무료 버전 사용량 제한", "한국 로컬 정보 약함"],
+    "weaknesses": [
+      "무료 버전 사용량 제한",
+      "한국 로컬 정보 약함"
+    ],
     "accessInfo": {
-      "platform": ["web", "ios", "android"],
+      "platform": [
+        "web",
+        "ios",
+        "android"
+      ],
       "signupRequired": true,
       "freeAvailable": true,
       "url": "https://chat.openai.com"
     },
-    "bestFor": ["복잡한 문제 해결", "영어 작업", "음성 대화 선호"],
+    "bestFor": [
+      "복잡한 문제 해결",
+      "영어 작업",
+      "음성 대화 선호"
+    ],
     "samplePromptTemplate": "안녕하세요! {concern} 에 대해 도움을 받고 싶어요. 제가 {occupation} 이라는 걸 감안해서 쉽게 설명해주실 수 있나요?",
     "matchingWeight": {
       "occupation": {
@@ -42,14 +57,19 @@
         "mobile_main": 3,
         "pc_main": 3
       }
-    }
+    },
+    "characterDescription": "백수의 왕 사자처럼 어떤 질문도 당당하고 막힘없이 해결하는 AI의 대명사. 카카오톡에도 탑재되어 국내에서 가장 접근하기 쉬운 AI예요."
   },
   {
     "id": "clova_x",
     "name": "CLOVA X",
     "provider": "Naver",
     "logo": "/characters/clova_x.png",
-    "tags": ["국내특화", "로컬정보", "네이버연동"],
+    "tags": [
+      "국내특화",
+      "로컬정보",
+      "네이버연동"
+    ],
     "badge": "🇰🇷 국내 로컬 특화",
     "shortDescription": "네이버가 만든 AI. 한국 정보에 가장 강해요.",
     "strengths": [
@@ -57,14 +77,25 @@
       "네이버 계정으로 바로 로그인",
       "한국어 뉘앙스와 맥락 이해 우수"
     ],
-    "weaknesses": ["해외 정보 약함", "영어 성능 제한적"],
+    "weaknesses": [
+      "해외 정보 약함",
+      "영어 성능 제한적"
+    ],
     "accessInfo": {
-      "platform": ["web", "ios", "android"],
+      "platform": [
+        "web",
+        "ios",
+        "android"
+      ],
       "signupRequired": true,
       "freeAvailable": true,
       "url": "https://clova-x.naver.com"
     },
-    "bestFor": ["국내 정보 탐색", "네이버 생태계 사용자", "지역 기반 소상공인"],
+    "bestFor": [
+      "국내 정보 탐색",
+      "네이버 생태계 사용자",
+      "지역 기반 소상공인"
+    ],
     "samplePromptTemplate": "{occupation} 으로 일하면서 {concern} 때문에 고민이에요. 한국 실정에 맞게 실용적인 방법을 알려주세요.",
     "matchingWeight": {
       "occupation": {
@@ -87,14 +118,19 @@
         "mobile_main": 3,
         "pc_main": 2
       }
-    }
+    },
+    "characterDescription": "포근하고 듬직한 곰처럼 한국 일상에 가장 친숙한 AI. 네이버 계정 하나로 국내 맛집·쇼핑·지역 정보를 가장 잘 알고 있어요."
   },
   {
     "id": "wrtn",
-    "name": "뤼튼 (Wrtn)",
+    "name": "뤼튼",
     "provider": "Wrtn Technologies",
     "logo": "/characters/wrtn.png",
-    "tags": ["한국어글쓰기", "템플릿", "무료"],
+    "tags": [
+      "한국어글쓰기",
+      "템플릿",
+      "무료"
+    ],
     "badge": "🇰🇷 한국어 글쓰기 특화",
     "shortDescription": "자소서부터 블로그까지. 한국어 글쓰기 템플릿의 왕.",
     "strengths": [
@@ -102,14 +138,26 @@
       "여러 최신 AI 모델 무료로 사용 가능",
       "한국인이 만든 직관적 UI/UX"
     ],
-    "weaknesses": ["깊은 분석보다 글쓰기 특화", "영어 콘텐츠 약함"],
+    "weaknesses": [
+      "깊은 분석보다 글쓰기 특화",
+      "영어 콘텐츠 약함"
+    ],
     "accessInfo": {
-      "platform": ["web", "ios", "android"],
+      "platform": [
+        "web",
+        "ios",
+        "android"
+      ],
       "signupRequired": true,
       "freeAvailable": true,
       "url": "https://wrtn.ai"
     },
-    "bestFor": ["자소서·이력서 작성", "SNS 콘텐츠 제작", "블로그 글쓰기", "N잡러"],
+    "bestFor": [
+      "자소서·이력서 작성",
+      "SNS 콘텐츠 제작",
+      "블로그 글쓰기",
+      "N잡러"
+    ],
     "samplePromptTemplate": "저는 {occupation} 인데요, {concern} 에 대한 글을 써야 해요. 자연스러운 한국어로 초안을 잡아주실 수 있나요?",
     "matchingWeight": {
       "occupation": {
@@ -132,14 +180,19 @@
         "mobile_main": 3,
         "pc_main": 3
       }
-    }
+    },
+    "characterDescription": "영리한 여우처럼 글쓰기의 핵심을 빠르게 꿰뚫는 AI. 자소서부터 SNS 글까지 한국어 템플릿이 풍부해 막힐 때 바로 꺼내 쓸 수 있어요."
   },
   {
     "id": "gemini",
     "name": "Gemini",
     "provider": "Google",
     "logo": "/characters/gemini.png",
-    "tags": ["구글연동", "멀티모달", "문서정리"],
+    "tags": [
+      "구글연동",
+      "멀티모달",
+      "문서정리"
+    ],
     "badge": "🌐 구글 생태계 통합",
     "shortDescription": "구글 계정 하나로 모든 문서·영상·이메일을 AI로.",
     "strengths": [
@@ -147,14 +200,25 @@
       "유튜브 영상 즉시 요약",
       "PDF·문서 업로드 후 맞춤 정리"
     ],
-    "weaknesses": ["구글 계정 필요", "한국 로컬 정보 약함"],
+    "weaknesses": [
+      "구글 계정 필요",
+      "한국 로컬 정보 약함"
+    ],
     "accessInfo": {
-      "platform": ["web", "ios", "android"],
+      "platform": [
+        "web",
+        "ios",
+        "android"
+      ],
       "signupRequired": true,
       "freeAvailable": true,
       "url": "https://gemini.google.com"
     },
-    "bestFor": ["구글 툴 헤비유저", "정보 수집·정리", "안드로이드 사용자"],
+    "bestFor": [
+      "구글 툴 헤비유저",
+      "정보 수집·정리",
+      "안드로이드 사용자"
+    ],
     "samplePromptTemplate": "구글 드라이브에 있는 자료를 바탕으로 {concern} 를 해결하고 싶어요. {occupation} 관점에서 어떻게 정리하면 좋을까요?",
     "matchingWeight": {
       "occupation": {
@@ -177,14 +241,19 @@
         "mobile_main": 3,
         "pc_main": 4
       }
-    }
+    },
+    "characterDescription": "구글이 만든 안드로이드처럼 디지털 세계를 자유롭게 연결하는 AI. Gmail·드라이브·유튜브를 계정 하나로 묶어 함께 쓸 수 있어요."
   },
   {
     "id": "copilot",
     "name": "MS Copilot",
     "provider": "Microsoft",
     "logo": "/characters/copilot.png",
-    "tags": ["오피스연동", "문서작업", "이미지생성"],
+    "tags": [
+      "오피스연동",
+      "문서작업",
+      "이미지생성"
+    ],
     "badge": "🌐 MS Office 완전 연동",
     "shortDescription": "엑셀·워드·PPT 안에서 바로 쓰는 AI.",
     "strengths": [
@@ -192,14 +261,26 @@
       "윈도우 엣지 브라우저에서 바로 사용",
       "DALL-E 기반 고퀄리티 이미지 생성"
     ],
-    "weaknesses": ["풀 기능은 유료(M365)", "모바일보다 PC 환경 최적"],
+    "weaknesses": [
+      "풀 기능은 유료(M365)",
+      "모바일보다 PC 환경 최적"
+    ],
     "accessInfo": {
-      "platform": ["web", "windows", "ios", "android"],
+      "platform": [
+        "web",
+        "windows",
+        "ios",
+        "android"
+      ],
       "signupRequired": false,
       "freeAvailable": true,
       "url": "https://copilot.microsoft.com"
     },
-    "bestFor": ["사무직 직장인", "문서·보고서 작성자", "전단지·포스터 제작"],
+    "bestFor": [
+      "사무직 직장인",
+      "문서·보고서 작성자",
+      "전단지·포스터 제작"
+    ],
     "samplePromptTemplate": "엑셀/워드 작업 중인데 {concern} 때문에 막혀요. {occupation} 업무에 맞게 단계별로 알려주세요.",
     "matchingWeight": {
       "occupation": {
@@ -222,14 +303,19 @@
         "mobile_main": 2,
         "pc_main": 5
       }
-    }
+    },
+    "characterDescription": "충직한 리트리버처럼 업무 현장에서 언제나 옆에 있는 AI. 엑셀·워드·PPT 안에서 바로 쓸 수 있어 사무 업무 효율이 확 달라져요."
   },
   {
     "id": "perplexity",
     "name": "Perplexity AI",
     "provider": "Perplexity AI",
     "logo": "/characters/perplexity.png",
-    "tags": ["팩트체크", "출처제공", "실시간검색"],
+    "tags": [
+      "팩트체크",
+      "출처제공",
+      "실시간검색"
+    ],
     "badge": "🌐 신뢰도 최상 AI 검색",
     "shortDescription": "거짓말 없는 AI. 모든 답변에 출처 링크를 달아줘요.",
     "strengths": [
@@ -237,14 +323,25 @@
       "실시간 웹 검색 기반 최신 정보 제공",
       "할루시네이션(거짓 정보) 최소화"
     ],
-    "weaknesses": ["창작·글쓰기보다 검색에 특화", "깊은 대화보다 정보 탐색 용도"],
+    "weaknesses": [
+      "창작·글쓰기보다 검색에 특화",
+      "깊은 대화보다 정보 탐색 용도"
+    ],
     "accessInfo": {
-      "platform": ["web", "ios", "android"],
+      "platform": [
+        "web",
+        "ios",
+        "android"
+      ],
       "signupRequired": false,
       "freeAvailable": true,
       "url": "https://www.perplexity.ai"
     },
-    "bestFor": ["투자·부동산 정보 탐색", "팩트체크가 중요한 직종", "연구·공부"],
+    "bestFor": [
+      "투자·부동산 정보 탐색",
+      "팩트체크가 중요한 직종",
+      "연구·공부"
+    ],
     "samplePromptTemplate": "{concern} 에 대해 정확한 정보가 필요해요. 출처와 함께 신뢰할 수 있는 최신 내용으로 정리해주세요.",
     "matchingWeight": {
       "occupation": {
@@ -267,14 +364,19 @@
         "mobile_main": 3,
         "pc_main": 4
       }
-    }
+    },
+    "characterDescription": "밤눈이 밝은 부엉이처럼 거짓 없이 진실만 꿰뚫는 AI. 모든 답변에 출처 링크를 자동으로 달아줘 정확한 근거가 필요할 때 가장 믿을 수 있어요."
   },
   {
     "id": "claude",
     "name": "Claude",
     "provider": "Anthropic",
     "logo": "/characters/claude.png",
-    "tags": ["자연스러운한국어", "문서분석", "기획작성"],
+    "tags": [
+      "자연스러운한국어",
+      "문서분석",
+      "기획작성"
+    ],
     "badge": "🌐 문장력 1위",
     "shortDescription": "번역투 없는 자연스러운 한국어 글쓰기의 끝판왕.",
     "strengths": [
@@ -282,14 +384,25 @@
       "방대한 PDF·문서 한번에 분석",
       "기획서·보고서 등 긴 문서 작성 탁월"
     ],
-    "weaknesses": ["가입 시 영어 UI", "실시간 검색 불가(기본)"],
+    "weaknesses": [
+      "가입 시 영어 UI",
+      "실시간 검색 불가(기본)"
+    ],
     "accessInfo": {
-      "platform": ["web", "ios", "android"],
+      "platform": [
+        "web",
+        "ios",
+        "android"
+      ],
       "signupRequired": true,
       "freeAvailable": true,
       "url": "https://claude.ai"
     },
-    "bestFor": ["기획자·마케터", "세련된 글쓰기 필요한 직종", "긴 문서 분석"],
+    "bestFor": [
+      "기획자·마케터",
+      "세련된 글쓰기 필요한 직종",
+      "긴 문서 분석"
+    ],
     "samplePromptTemplate": "저는 {occupation} 인데, {concern} 에 대한 글(또는 기획안)을 써야 해요. 자연스러운 한국어로, 독자가 쉽게 이해할 수 있도록 작성해주세요.",
     "matchingWeight": {
       "occupation": {
@@ -312,14 +425,19 @@
         "mobile_main": 3,
         "pc_main": 4
       }
-    }
+    },
+    "characterDescription": "우아하고 도도한 고양이처럼 섬세한 문장력을 가진 AI. 번역투 없는 자연스러운 한국어 글쓰기와 방대한 문서 분석에서 가장 탁월해요."
   },
   {
     "id": "canva_ai",
     "name": "Canva AI",
     "provider": "Canva",
     "logo": "/characters/canva.png",
-    "tags": ["디자인자동화", "SNS썸네일", "PPT생성"],
+    "tags": [
+      "디자인자동화",
+      "SNS썸네일",
+      "PPT생성"
+    ],
     "badge": "🌐 비디자이너를 위한 시각화",
     "shortDescription": "텍스트 몇 줄로 SNS 썸네일, PPT, 배너를 뚝딱.",
     "strengths": [
@@ -327,14 +445,25 @@
       "SNS 썸네일·포스터·PPT 템플릿 수천 종",
       "디자인 경험 없어도 즉시 사용 가능"
     ],
-    "weaknesses": ["고급 기능 유료", "텍스트 기반 AI 작업보다 디자인 특화"],
+    "weaknesses": [
+      "고급 기능 유료",
+      "텍스트 기반 AI 작업보다 디자인 특화"
+    ],
     "accessInfo": {
-      "platform": ["web", "ios", "android"],
+      "platform": [
+        "web",
+        "ios",
+        "android"
+      ],
       "signupRequired": true,
       "freeAvailable": true,
       "url": "https://www.canva.com"
     },
-    "bestFor": ["자영업 홍보물 제작", "인플루언서·유튜버", "1인 기업가"],
+    "bestFor": [
+      "자영업 홍보물 제작",
+      "인플루언서·유튜버",
+      "1인 기업가"
+    ],
     "samplePromptTemplate": "{concern} 를 홍보하는 {occupation} 에 맞는 SNS 게시글 문구와 이미지 설명을 만들어주세요.",
     "matchingWeight": {
       "occupation": {
@@ -357,14 +486,19 @@
         "mobile_main": 4,
         "pc_main": 3
       }
-    }
+    },
+    "characterDescription": "상황마다 색을 바꾸는 카멜레온처럼 어떤 디자인 요구에도 맞춰 변신하는 AI. 텍스트 몇 줄만 입력하면 SNS 썸네일·PPT·포스터가 뚝딱 완성돼요."
   },
   {
     "id": "lilys",
     "name": "Lilys AI",
     "provider": "Lilys",
     "logo": "/characters/lilys.png",
-    "tags": ["영상요약", "링크요약", "진입장벽제로"],
+    "tags": [
+      "영상요약",
+      "링크요약",
+      "진입장벽제로"
+    ],
     "badge": "🇰🇷 링크 하나로 끝나는 요약",
     "shortDescription": "유튜브 링크만 붙여넣으면 핵심만 요약해줘요.",
     "strengths": [
@@ -372,14 +506,25 @@
       "가입·학습 없이 바로 사용 가능",
       "긴 영상·기사를 3분 안에 파악"
     ],
-    "weaknesses": ["요약 전용 도구, 대화·창작 불가", "링크가 없으면 사용 불가"],
+    "weaknesses": [
+      "요약 전용 도구, 대화·창작 불가",
+      "링크가 없으면 사용 불가"
+    ],
     "accessInfo": {
-      "platform": ["web", "ios", "android"],
+      "platform": [
+        "web",
+        "ios",
+        "android"
+      ],
       "signupRequired": false,
       "freeAvailable": true,
       "url": "https://lilys.ai"
     },
-    "bestFor": ["영상 볼 시간 없는 직장인", "정보 탐색이 잦은 학생", "뉴스 빠르게 파악하고 싶은 분"],
+    "bestFor": [
+      "영상 볼 시간 없는 직장인",
+      "정보 탐색이 잦은 학생",
+      "뉴스 빠르게 파악하고 싶은 분"
+    ],
     "samplePromptTemplate": "이 영상(또는 기사) 링크를 요약해주세요: [링크 붙여넣기] — {concern} 와 관련된 핵심 내용만 추려주세요.",
     "matchingWeight": {
       "occupation": {
@@ -402,6 +547,7 @@
         "mobile_main": 4,
         "pc_main": 3
       }
-    }
+    },
+    "characterDescription": "쫑긋한 귀로 정보를 낚아채는 토끼처럼 빠른 AI. 유튜브 링크 하나만 넣으면 긴 영상의 핵심을 3분 안에 콕 집어 요약해줘요."
   }
 ]

@@ -62,8 +62,12 @@ export function calculateTopAIs(answers: Answers): RankedAI[] {
     .sort((a, b) => b.score - a.score || b.literacyScore - a.literacyScore)
     .slice(0, 3)
 
+  const topScore = sorted[0]?.score ?? 1
+
   return sorted.map((s, index) => {
     const rank = (index + 1) as 1 | 2 | 3
+    // 1위 기준 상대적 스케일링: 60~97% 범위
+    const compatibilityPercent = Math.round(60 + (s.score / topScore) * 37)
     return {
       rank,
       id: s.id,
@@ -73,6 +77,8 @@ export function calculateTopAIs(answers: Answers): RankedAI[] {
       strengths: s.tool.strengths,
       accessInfo: s.tool.accessInfo,
       resultMessage: '',
+      compatibilityPercent,
+      characterDescription: s.tool.characterDescription ?? '',
     }
   })
 }

@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AI 궁합 테스트",
-  description: "2분 설문으로 나에게 딱 맞는 AI 도구를 찾고, 바로 쓸 수 있는 맞춤 프롬프트까지 받아보세요",
+  title: "내 AI 타입 찾기",
+  description: "내 성향엔 어떤 AI가 맞을까? 2분 안에 내 타입을 찾고 맞춤 프롬프트까지 받아보세요",
 };
 
 export default function RootLayout({

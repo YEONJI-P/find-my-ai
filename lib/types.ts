@@ -23,6 +23,8 @@ export type RankedAI = {
     url: string
   }
   resultMessage: string
+  compatibilityPercent: number
+  characterDescription: string
 }
 
 export type QuestionOption = {

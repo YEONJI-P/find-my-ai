@@ -44,7 +44,7 @@ export default function ResultPage() {
         <div className="text-center space-y-1">
           <p className="text-sm text-blue-600 font-medium">분석 완료!</p>
           <h1 className="text-2xl font-bold text-gray-900">
-            나에게 딱 맞는 AI는 {topAI?.name} 🎉
+            나는 {topAI?.name} 타입! 🎉
           </h1>
         </div>
 

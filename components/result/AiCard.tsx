@@ -71,13 +71,26 @@ export default function AiCard({ ai, isTop }: AiCardProps) {
       <CardContent className={`p-4 space-y-3 `}>
         <div className={`flex items-center justify-between`}>
           <span className="text-sm font-semibold text-gray-500">{RANK_LABELS[ai.rank]}</span>
-          <Badge variant="secondary">{ai.badge}</Badge>
+          <div className="flex items-center gap-2">
+            {isTop ? (
+              <span className="text-base font-bold text-yellow-500">{ai.compatibilityPercent}% 궁합</span>
+            ) : (
+              <span className="text-xs text-gray-400">{ai.compatibilityPercent}% 궁합</span>
+            )}
+            <Badge variant="secondary">{ai.badge}</Badge>
+          </div>
         </div>
 
         <div>
           <h3 className="text-lg font-bold text-gray-900">{ai.name}</h3>
           <p className="text-sm text-gray-600 mt-1">{ai.shortDescription}</p>
         </div>
+
+        {isTop && ai.characterDescription && (
+          <p className="text-xs text-gray-500 bg-gray-100 rounded-lg px-3 py-2 leading-relaxed">
+            {ai.characterDescription}
+          </p>
+        )}
 
         {!isTop && (
           <ul className="space-y-1">
