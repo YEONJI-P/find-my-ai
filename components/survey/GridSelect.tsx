@@ -74,7 +74,7 @@ export default function GridSelect({
               className={`flex flex-col items-center justify-center p-4 rounded-xl border-2 transition-all duration-150 gap-2 ${
                 isSelected
                   ? 'border-blue-500 bg-blue-50'
-                  : 'border-gray-200 hover:border-blue-300 hover:bg-blue-50'
+                  : 'border-gray-200 bg-white active:border-blue-300 active:bg-blue-50'
               }`}
             >
               {option.emoji && <span className="text-2xl">{option.emoji}</span>}
