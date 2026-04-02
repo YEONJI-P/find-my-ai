@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import AiCard from '@/components/result/AiCard'
 import PromptBox from '@/components/result/PromptBox'
+import ShareButtons from '@/components/result/ShareButtons'
 import { Button } from '@/components/ui/button'
 import type { RankedAI, Answers } from '@/lib/types'
 
@@ -56,6 +57,8 @@ export default function ResultPage() {
             onResultMessage={setTopResultMessage}
           />
         )}
+
+        {topAIWithMessage && <ShareButtons topAI={topAIWithMessage} />}
 
         {otherAIs.length > 0 && (
           <div className="space-y-3">
