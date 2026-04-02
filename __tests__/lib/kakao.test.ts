@@ -30,6 +30,12 @@ describe('buildShareParams', () => {
 
   it('buttonTitle은 나도 테스트하기다', () => {
     const params = buildShareParams(mockAI)
-    expect(params.buttons[0].title).toBe('나도 테스트하기 →')
+    expect(params.buttons[0].title).toBe('나도 AI 찾아보기 →')
+  })
+
+  it('캐릭터 이미지가 있으면 imageWidth/imageHeight가 200이다', () => {
+    const params = buildShareParams(mockAI)
+    expect(params.content.imageWidth).toBe(200)
+    expect(params.content.imageHeight).toBe(200)
   })
 })
