@@ -47,13 +47,13 @@ function CharacterBanner({ ai }: { ai: RankedAI }) {
   }
 
   return (
-    <div className="w-full rounded-t-xl overflow-hidden" style={{ height: 160 }}>
+    <div className="w-full rounded-t-xl overflow-hidden aspect-square" >
       <Image
         src={`/characters/${ai.id}.png`}
         alt={`${ai.name} 캐릭터`}
         width={400}
-        height={160}
-        className="w-full h-full object-cover"
+        height={400}
+        className="w-full h-full object-contain"
         onError={() => setImgError(true)}
       />
     </div>
@@ -68,15 +68,14 @@ export default function AiCard({ ai, isTop }: AiCardProps) {
     >
       {isTop && <CharacterBanner ai={ai} />}
 
-      <CardContent className={`p-4 space-y-3 ${isTop ? 'text-center' : ''}`}>
-        <div className={`flex items-center ${isTop ? 'justify-center' : 'justify-between'}`}>
+      <CardContent className={`p-4 space-y-3 `}>
+        <div className={`flex items-center justify-between`}>
           <span className="text-sm font-semibold text-gray-500">{RANK_LABELS[ai.rank]}</span>
-          {!isTop && <Badge variant="secondary">{ai.badge}</Badge>}
+          <Badge variant="secondary">{ai.badge}</Badge>
         </div>
 
         <div>
           <h3 className="text-lg font-bold text-gray-900">{ai.name}</h3>
-          {isTop && <Badge variant="secondary" className="mt-1">{ai.badge}</Badge>}
           <p className="text-sm text-gray-600 mt-1">{ai.shortDescription}</p>
         </div>
 
