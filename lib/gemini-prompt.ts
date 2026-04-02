@@ -26,7 +26,6 @@ export type PromptParams = {
 export type PromptInput = {
   recommendedAI: string
   occupation: string
-  interests?: string
   concern?: string
   mbti?: string
 }
@@ -37,7 +36,7 @@ export function buildPromptInput(params: PromptParams): PromptInput {
     .map(i => INTEREST_LABELS[i] ?? i)
     .join('·') || undefined
 
-  const occupation = [params.occupationOrHobby, params.detail]
+  const occupation = [params.occupationOrHobby, params.detail, interestStr]
     .filter(Boolean)
     .join(', ')
 
@@ -45,8 +44,6 @@ export function buildPromptInput(params: PromptParams): PromptInput {
     recommendedAI: params.recommendedAI,
     occupation,
   }
-
-  if (interestStr) input.interests = interestStr
 
   const concern = params.concern?.trim()
   if (concern) input.concern = concern
