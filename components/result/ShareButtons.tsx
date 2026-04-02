@@ -9,23 +9,32 @@ interface ShareButtonsProps {
 }
 
 async function saveAsImage() {
-  const card = document.querySelector('[data-share-card]') as HTMLElement | null
-  if (!card) return
-  const html2canvas = (await import('html2canvas')).default
-  const canvas = await html2canvas(card, { useCORS: true })
-  const link = document.createElement('a')
-  link.download = `my-ai-${Date.now()}.png`
-  link.href = canvas.toDataURL('image/png')
-  link.click()
+  try {
+    const card = document.querySelector('[data-share-card]') as HTMLElement | null
+    if (!card) return
+    const html2canvas = (await import('html2canvas')).default
+    const canvas = await html2canvas(card, { useCORS: true })
+    const link = document.createElement('a')
+    link.download = `my-ai-${Date.now()}.png`
+    link.href = canvas.toDataURL('image/png')
+    link.click()
+  } catch (error) {
+    // Silently handle error
+    console.error('Failed to save image:', error)
+  }
 }
 
 export default function ShareButtons({ topAI }: ShareButtonsProps) {
   const [copied, setCopied] = useState(false)
 
   async function handleCopyLink() {
-    await navigator.clipboard.writeText(window.location.href)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 1500)
+    try {
+      await navigator.clipboard.writeText(window.location.href)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 1500)
+    } catch (error) {
+      console.error('Failed to copy link:', error)
+    }
   }
 
   return (
@@ -38,7 +47,7 @@ export default function ShareButtons({ topAI }: ShareButtonsProps) {
           onClick={() => shareToKakao(topAI)}
           className="flex flex-col items-center gap-1.5"
         >
-          <span className="w-13 h-13 flex items-center justify-center bg-[#FEE500] rounded-full text-2xl shadow-sm"
+          <span className="flex items-center justify-center bg-[#FEE500] rounded-full text-2xl shadow-sm"
             style={{ width: 52, height: 52 }}>
             💬
           </span>
