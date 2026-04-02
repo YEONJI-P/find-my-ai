@@ -12,11 +12,11 @@ async function saveAsImage() {
   try {
     const card = document.querySelector('[data-share-card]') as HTMLElement | null
     if (!card) return
-    const html2canvas = (await import('html2canvas')).default
-    const canvas = await html2canvas(card, { useCORS: true })
+    const { toPng } = await import('html-to-image')
+    const dataUrl = await toPng(card)
     const link = document.createElement('a')
     link.download = `my-ai-${Date.now()}.png`
-    link.href = canvas.toDataURL('image/png')
+    link.href = dataUrl
     link.click()
   } catch (error) {
     // Silently handle error

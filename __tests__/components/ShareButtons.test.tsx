@@ -2,9 +2,9 @@ import { render, screen, fireEvent, act } from '@testing-library/react'
 import ShareButtons from '@/components/result/ShareButtons'
 import type { RankedAI } from '@/lib/types'
 
-// html2canvas mock
-jest.mock('html2canvas', () => jest.fn().mockResolvedValue({
-  toDataURL: () => 'data:image/png;base64,abc'
+// html-to-image mock
+jest.mock('html-to-image', () => ({
+  toPng: jest.fn().mockResolvedValue('data:image/png;base64,abc'),
 }))
 
 // kakao mock
